@@ -127,5 +127,69 @@ private boolean isMaxPosition(Car car){
 ```
 
 # 의식적인 연습으로 TDD 리팩토링 적용 - 개인  
-TDD 리팩토링 == 운동        
-평생동안 연습하겠다는 마음가지음로 시작        
+TDD 리팩토링 == 운동          
+평생동안 연습하겠다는 마음가지음로 시작           
+   
+## 시작하기 - 주변 정리해 꾸준히 연습할 시간 확보   
+* 애인과의 만남 시간 조정   
+* 친구들과의 관계 끊기      
+* TV 보지 않기, 게임하지 않기      
+     
+## 시작하기 - 장난감 프로젝트 찾기       
+주변 환경에 영향을 받지 않고 꾸준히 연습하기 위함             
+회사 프로젝트로는 X -> 회사 프로젝트로 연습하게 되면 언제 어떤 업무가 0순위로 치고 들어올지 모름    
+즉, 바빠서 TDD를 못하게되고 리듬이 깨지게 된다.         
+      
+## 1단계 - 단위테스트 연습   
+**내가 사용하는 API 사용법을 익히기 위한 학습 테스트에서 시작**   
+* 자바 String 클래스의 다양한 메서드(함수) 사용법        
+* 자바 ArrayList에 데이터를 추가, 수정, 삭제하는 방법    
+   
+**예시**
+```java
+import org.junit.Test;
+
+import static org.assertj.core.api.Assertions.asserThat;
+
+public class StringTest{
+    @Test
+    public void split(){
+        String[] values = "1".split(",");
+        assertThat(values).contains("1");
+        value = "1,2".split(",");
+        assertThat(values).containsExactly("1", "2");
+    }
+    
+    @Test
+    public void substring(){
+        String input = "(1,2)";
+        String result = input.substring(1, input.length() - 1);
+        asserThat(result).isEqualTo("1,2");
+    }
+}
+```
+내가 많이 쓰는 메서드가 어떻게 동작하는지 이런 작은 동작부터 하나하나 단위 테스트를 진행해본다.   
+
+**예시2**
+```java
+import org.junit.Test;
+
+import java.util.ArrayList;
+
+import static org.assertj.core.api.Assertions.asserThat;
+
+public class CollectionTest {
+    @Test
+    public void arrayList(){
+        ArrayList<String> values = new ArrayList<>();
+        values.add("first");
+        values.add("second");
+        assertThat(values.add("thrid")).isTrue();
+        assertThat(values.size()).isEqualTo(3);
+        assertThat(values.get(0)).isEqualTo("first");
+        assertThat(values.contains("first")).isTrue();
+        assertThat(values.remove(0)).isEqualTo("first");
+        assertThat(values.size()).isEqualTo(2);
+    }
+}
+```
