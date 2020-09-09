@@ -125,3 +125,7 @@ private boolean isMaxPosition(Car car){
     return car.isMaxPosition(maxDistance); // 오버로딩으로 처리한 것 같다.  
 }
 ```
+
+# 의식적인 연습으로 TDD 리팩토링 적용 - 개인  
+TDD 리팩토링 == 운동        
+평생동안 연습하겠다는 마음가지음로 시작        
