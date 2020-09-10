@@ -741,4 +741,74 @@ public class Positive {
     }
 }
 ```
-놀라운 점은 오버로딩을 이용해 서로 다른 생성자를 불러서 사용할 수 있다는 점 입니다.   
+**놀라운 점은 오버로딩을 이용해 서로 다른 생성자를 불러서 사용할 수 있다는 점 입니다.**     
+그리고 이제 기존 원시값으로 계산되던 형식을 해당 클래스 (Positve)에 맞게 리팩토링해줍니다.   
+
+```java
+public class StringCalculator {
+    public static int splitAndSum(String text) {
+        if (isBlank(text)) return 0;
+        return sum(toPositives(split(text)));
+    }
+
+    private static boolean isBlank(String text){
+        return text==null || text.isEmpty();
+    }
+    private static String[] split(String text){
+        return text.split(",|:");
+    }
+
+    private static Positive[] toPositives(String[] values){
+        Positive[] numbers = new Positive[values.length];
+        for(int i=0; i < values.length; i++){
+            numbers[i] = new Positive(values[i]);
+        }
+        return numbers;
+    }
+
+    private static int sum(Positive[] numbers){
+        Positive result = new Positive(0);
+        for(Positive number : numbers) {
+            result = result.add(number);
+        }
+        return result.getNumber();
+    }
+}
+```
+그리고 해당 코드가 돌아가도록 다시 ```Positive``` 클래스에 알맞은 메서드를 구현해주도록 합니다.   
+
+```java
+    public Positive add(Positive other){
+        return new Positive(this.number + other.getNumber());
+    }
+    
+    public int getNumber(){
+        return number;
+    }
+```
+
+**Positive 개선 코드**
+```java
+public class Positive {
+    private int number;
+
+    public Positive(String value) {
+        this(Integer.parseInt(value));
+    }
+
+    public Positive(int number) {
+        if(number < 0){
+            throw new RuntimeException();
+        }
+        this.number = number;
+    }
+
+    public Positive add(Positive other){
+        return new Positive(this.number + other.getNumber());
+    }
+
+    public int getNumber(){
+        return number;
+    }
+}
+```
