@@ -321,11 +321,11 @@ public class StringCalculator {
     public static int splitAndSum(String text) {
         if (text==null || text.isEmpty()) return 0;
         String[] values = text.split(",|:");
-        int[] numbers = toInt(values);
+        int[] numbers = toInts(values);
         return sum(numbers);
     }
     
-    private static int[] toInt(String[] values){
+    private static int[] toInts(String[] values){
         int[] numbers = new int[values.length];
         for(int i=0; i < values.length; i++){
             numbers[i] = Integer.parseInt(values[i]);
@@ -357,11 +357,11 @@ public class StringCalculator {
     public static int splitAndSum(String text) {
         if (text==null || text.isEmpty()) return 0;
         String[] values = text.split(",|:");
-        int[] numbers = toInt(values);
+        int[] numbers = toInts(values);
         return sum(numbers);
     }
 
-    private static int[] toInt(String[] values){
+    private static int[] toInts(String[] values){
         int[] numbers = new int[values.length];
         for(int i=0; i < values.length; i++){
             numbers[i] = Integer.parseInt(values[i]);
@@ -388,10 +388,10 @@ public class StringCalculator {
 public class StringCalculator {
     public static int splitAndSum(String text) {
         if (text==null || text.isEmpty()) return 0;
-        return sum(toInt(text.split(",|:")));
+        return sum(toInts(text.split(",|:")));
     }
 
-    private static int[] toInt(String[] values){
+    private static int[] toInts(String[] values){
         int[] numbers = new int[values.length];
         for(int i=0; i < values.length; i++){
             numbers[i] = Integer.parseInt(values[i]);
@@ -418,10 +418,10 @@ public class StringCalculator {
 public class StringCalculator {
     public static int splitAndSum(String text) {
         if (text==null || text.isEmpty()) return 0;
-        return sum(toInt(text.split(",|:")));
+        return sum(toInts(text.split(",|:")));
     }
 
-    private static int[] toInt(String[] values){
+    private static int[] toInts(String[] values){
         int[] numbers = new int[values.length];
         for(int i=0; i < values.length; i++){
             numbers[i] = Integer.parseInt(values[i]);
@@ -448,7 +448,7 @@ public class StringCalculator {
 public class StringCalculator {
     public static int splitAndSum(String text) {
         if (isBlank(text)) return 0;
-        return sum(toInt(split(text)));
+        return sum(toInts(split(text)));
     }
 
     private static boolean isBlank(String text){
@@ -458,7 +458,7 @@ public class StringCalculator {
         return text.split(",|:");
     }
 
-    private static int[] toInt(String[] values){
+    private static int[] toInts(String[] values){
         int[] numbers = new int[values.length];
         for(int i=0; i < values.length; i++){
             numbers[i] = Integer.parseInt(values[i]);
@@ -502,7 +502,7 @@ public class StringCalculator {
 public class StringCalculator {
     public static int splitAndSum(String text) {
         if (isBlank(text)) return 0;
-        return sum(toInt(split(text)));
+        return sum(toInts(split(text)));
     }
 
     private static boolean isBlank(String text){
@@ -512,7 +512,7 @@ public class StringCalculator {
         return text.split(",|:");
     }
 
-    private static int[] toInt(String[] values){
+    private static int[] toInts(String[] values){
         int[] numbers = new int[values.length];
         for(int i=0; i < values.length; i++){
             numbers[i] = Integer.parseInt(values[i]);
@@ -550,6 +550,77 @@ public class StringCalculator {
 쉼표```,``` 또는 콜론```:```을 구분자로 가지는 문자열을 전달하는 경우 구분자를 기준으로 분리한 각 숫자의 합을 반환       
 **숫자 이외의 값 또는 음수를 전달하는 경우 RuntimeException 예외를 throw 한다**        
   
-****
+```
+입력                  출력  
+null or ""  ->          0
+"1"         ->          1
+"1,2"       ->          3
+"1,2:3"     ->          6
+"-1,2:3"    ->          RuntimeException
+```
+
+일단 이에 대한 테스트 코드가 추가된다.   
+
 ```java
+import org.junit.Test;
+
+import static org.assertj.core.api.Assertions.asserThat;
+
+public class StringTest{
+    @Test
+    public void split(){
+        String[] values = "1".split(",");
+        assertThat(values).contains("1");
+        value = "1,2".split(",");
+        assertThat(values).containsExactly("1", "2");
+    }
+    
+    @Test
+    public void substring(){
+        String input = "(1,2)";
+        String result = input.substring(1, input.length() - 1);
+        asserThat(result).isEqualTo("1,2");
+    }
+    
+    @Test(expected = RuntimeException.class)
+    public void 음수값(){
+        StringCalculator.splitAndSum("-1,2:3");
+    }
+      
+}
+```
+
+그리고 기존에 리팩토링 했던 코드를 봅시다.   
+
+```java
+public class StringCalculator {
+    public static int splitAndSum(String text) {
+        if (isBlank(text)) return 0;
+        return sum(toInts(split(text)));
+    }
+
+    private static boolean isBlank(String text){
+        return text==null || text.isEmpty();
+    }
+    private static String[] split(String text){
+        return text.split(",|:");
+    }
+
+    private static int[] toInts(String[] values){
+        int[] numbers = new int[values.length];
+        for(int i=0; i < values.length; i++){
+            numbers[i] = Integer.parseInt(values[i]);
+        }
+        return numbers;
+    }
+
+    private static int sum(int[] numbers){
+        int result = 0;
+        for(int number : numbers) {
+            result += number;
+        }
+        return result;
+    }
+
+}
 ```
