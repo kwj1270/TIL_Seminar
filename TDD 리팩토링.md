@@ -251,7 +251,7 @@ public class StringCalculatorTest {
 **프로덕션 코드**
 ```java
 public class StringCalculator {
-    public class int splitAndSum(String text) {
+    public static int splitAndSum(String text) {
         int result = 0;
         if (text == null || text.isEmpty()) {
             result = 0;
@@ -265,8 +265,25 @@ public class StringCalculator {
     }
 }
 ```
-
-### 3단계 - 메소드 분리 리팩토링    
-테스트 코드는 변경하지 말고   
-**테스트 대상 코드(프로덕션 코드)를 개선하는 연습을 집중한다.**
-
+  
+### 3단계 - 메소드 분리 리팩토링      
+테스트 코드는 변경하지 말고     
+**테스트 대상 코드(프로덕션 코드)를 개선하는 연습을 집중한다.**     
+    
+**리팩토링 코드**    
+```java
+public class StringCalculator {
+    public static int splitAndSum(String text) {
+        if (text==null || text.isEmpty()) return 0;
+        String[] values = text.split(",|:");
+        return sum(values);
+    }
+    public static int sum(String[] values){
+        int result = 0;
+        for(String value : values) {
+            result += Integer.parseInt(value);
+        }
+        return result;
+    }
+}
+```
