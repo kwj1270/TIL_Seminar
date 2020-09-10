@@ -542,7 +542,70 @@ public class StringCalculator {
           
 연습을 극단적인 방법으로 연습하는 것도 좋다.       
 예를 들어 한 메소드 라인 수 제한을 15라인 -> 10 라인으로 줄여가면서 연습하는 것도 좋은 방법이다.         
-        
+       
+또한 여기서 추가적으로 리팩토링을 하자면 아래와 같습니다.   
+ 
+```java
+            numbers[i] = Integer.parseInt(values[i]);
+```
+여기서도 계산식이 보이므로 관련된 메서드를 만들어줍니다. 
+
+**추가한 메서드**
+```java
+    private static int toInt(String value){
+        int number = Integer.parseInt(value);
+        if(number < 0){
+            throw new RuntimeException();
+        }
+        return number;
+    }
+```
+
+**전체 개선 코드**
+```java
+ 
+public class StringCalculator {
+    public static int splitAndSum(String text) {
+        if (isBlank(text)) return 0;
+        return sum(toInts(split(text)));
+    }
+
+    private static boolean isBlank(String text){
+        return text==null || text.isEmpty();
+    }
+    private static String[] split(String text){
+        return text.split(",|:");
+    }
+
+    private static int[] toInts(String[] values){
+        int[] numbers = new int[values.length];
+        for(int i=0; i < values.length; i++){
+            numbers[i] = toInt(values[i]);
+        }
+        return numbers;
+    }
+
+    private static int toInt(String value){
+        int number = Integer.parseInt(value);
+        if(number < 0){
+            throw new RuntimeException();
+        }
+        return number;
+    }
+
+    private static int sum(int[] numbers){
+        int result = 0;
+        for(int number : numbers) {
+            result += number;
+        }
+        return result;
+    }
+
+}
+```
+이렇게 분리했을 경우 특정 값 처리에 대한 예외처리를 진행할 수 있습니다.            
+**그리고 이와 같은 경우 클래스로 분리까지 할 수 있는 확장성 있는 코드가 될 수 있습니다.**              
+          
 ## 리팩토링 연습 - 클래스 분리       
 좀전까지는 리팩토링의 메서드 분리였습니다.       
 이제 클래스를 만드는 기준으로 클래스를 분리하는 연습을 해보겠습니다.       
@@ -609,9 +672,17 @@ public class StringCalculator {
     private static int[] toInts(String[] values){
         int[] numbers = new int[values.length];
         for(int i=0; i < values.length; i++){
-            numbers[i] = Integer.parseInt(values[i]);
+            numbers[i] = toInt(values[i]);
         }
         return numbers;
+    }
+
+    private static int toInt(String value){
+        int number = Integer.parseInt(value);
+        if(number < 0){
+            throw new RuntimeException();
+        }
+        return number;
     }
 
     private static int sum(int[] numbers){
@@ -624,3 +695,50 @@ public class StringCalculator {
 
 }
 ```
+
+### 모든 원시값과 문자열을 포장한다.   
+원시값이나 문자열은 이를 포장하는 래퍼 클래스를 만들어서 사용할 수 있습니다.   
+
+```java
+    private static int toInt(String value){
+        int number = Integer.parseInt(value);
+        if(number < 0){
+            throw new RuntimeException();
+        }
+        return number;
+    }
+```
+리턴 하는 값이 원시값이기 때문에 이를 포장하는 래퍼클래스를 만들어보겠습니다.  
+
+```java
+public class Positive {
+    private int number;
+    
+    public Positive(String value) {
+        int number = Integer.parseInt(value);
+        if(number < 0){
+            throw new RuntimeException();
+        }
+        this.number = number;
+    }
+}
+```
+그리고 위 코드는 클래스의 특성인 오버로딩을 이용하여 다양하게 구현할 수 있습니다.   
+
+```java
+public class Positive {
+    private int number;
+
+    public Positive(String value) {
+        this(Integer.parseInt(value));
+    }
+
+    public Positive(int number) {
+        if(number < 0){
+            throw new RuntimeException();
+        }
+        this.number = number;
+    }
+}
+```
+놀라운 점은 오버로딩을 이용해 서로 다른 생성자를 불러서 사용할 수 있다는 점 입니다.   
