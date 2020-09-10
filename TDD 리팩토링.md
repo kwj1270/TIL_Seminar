@@ -219,4 +219,50 @@ null or ""  ->          0
 "1,2:3"     ->          6
 ```
 
-![TDD](https://user-images.githubusercontent.com/50267433/79682794-2821da80-8260-11ea-87eb-61cd1eef3b80.png)
+![TDD](https://user-images.githubusercontent.com/50267433/79682794-2821da80-8260-11ea-87eb-61cd1eef3b80.png)    
+   
+
+```java
+public class StringCalculatorTest {
+    @Test
+    public void null_또는_반값() {
+        assertThat(StringCalculator.splitAndSum(null).isEqualTo(0));
+        assertThat(StringCalculator.splitAndSum("").isEqualTo(0));
+    }
+    
+    @Test
+    public void 값_하나(){
+        assertThat(StringCalculator.splitAndSum("1").isEqualTo(1));
+    }
+    
+    @Test
+    public void 쉼표_구분자(){
+        assertThat(StringCalculator.splitAndSum("1,2").isEqualTo(3));
+    }
+    
+    @Test
+    public void 쉼표_콜론_구분자(){
+        assertThat(StringCalculator.splitAndSum("1,2:3").isEqualTo(6));
+    }
+}
+```
+
+```java
+public class StringCalculator {
+    public class int splitAndSum(String text) {
+        int result = 0;
+        if (text == null || text.isEmpty()) {
+            result = 0;
+        } else {
+            String[] values = text.split(",|:");
+            for(String value : values) {
+                result += Integer.parseInt(value);
+            }
+        }
+        return result;
+    }
+}
+```
+
+### 3단계 - 메소드 분리 리팩토링 
+
