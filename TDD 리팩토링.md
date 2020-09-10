@@ -804,9 +804,14 @@ public class Positive {
     }
 
     public Positive add(Positive other){
-        return new Positive(this.number + other.getNumber());
+        return new Positive(this.number + other.number);
     }
 
+/*
+    public Positive add(Positive other){
+        return new Positive(this.number + other.getNumber());
+    }
+*/
     public int getNumber(){
         return number;
     }
