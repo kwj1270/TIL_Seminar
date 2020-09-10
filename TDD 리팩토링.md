@@ -287,6 +287,24 @@ public class StringCalculator {
     }
 }
 ```
+
+## 메서드가 한가지 일만 하기  
+```java
+public class StringCalculator {
+    public static int splitAndSum(String text) {
+        if (text==null || text.isEmpty()) return 0;
+        String[] values = text.split(",|:");
+        return sum(values);
+    }
+    public static int sum(String[] values){
+        int result = 0;
+        for(String value : values) {
+            result += Integer.parseInt(value);
+        }
+        return result;
+    }
+}
+```
 우선 불필요한 변수 사용과 리턴을 배제하였고        
 else 구문을 없애며 작업을 처리하도록 했습니다.           
 하지만 위 코드도 리펙토링이 잘 되었다 볼수 없습니다.      
@@ -296,3 +314,36 @@ else 구문을 없애며 작업을 처리하도록 했습니다.
 2. 숫자를 누적하여 더하기         
    
 라는 2가지 작업을 하기 때문입니다.      
+
+```java
+
+public class StringCalculator {
+    public static int splitAndSum(String text) {
+        if (text==null || text.isEmpty()) return 0;
+        String[] values = text.split(",|:");
+        return sum(toInt(values));
+    }
+
+    public static int[] toInt(String[] values){
+        int[] numbers = new int[values.length];
+        for(int i=0; i < values.length; i++){
+            numbers[i] = Integer.parseInt(values[i]);
+        }
+        return numbers;
+    }
+    
+    public static int sum(int[] numbers){
+        int result = 0;
+        for(int number : numbers) {
+            result += number;
+        }
+        return result;
+    }
+    
+}
+```  
+언뜻보면 코드가 길어진것 같고 for문이 1번에서 2번으로 올라갔지만        
+데이터 크기가 크지 않기 때문에 성능에 크게 영향을 미치지 않습니다.        
+    
+하지만 이렇게 메서드가 한가지 일만 처리하게 한다면 이 메소드들이 재활용 될 수 있습니다.   
+왜냐하면 가장 작은 단위로 작게 쪼개져있기 때문에 
