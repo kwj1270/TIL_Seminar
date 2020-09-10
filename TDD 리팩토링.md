@@ -221,7 +221,8 @@ null or ""  ->          0
 
 ![TDD](https://user-images.githubusercontent.com/50267433/79682794-2821da80-8260-11ea-87eb-61cd1eef3b80.png)    
    
-
+    
+**테스트 코드**   
 ```java
 public class StringCalculatorTest {
     @Test
@@ -247,6 +248,7 @@ public class StringCalculatorTest {
 }
 ```
 
+**프로덕션 코드**
 ```java
 public class StringCalculator {
     public class int splitAndSum(String text) {
@@ -264,5 +266,7 @@ public class StringCalculator {
 }
 ```
 
-### 3단계 - 메소드 분리 리팩토링 
+### 3단계 - 메소드 분리 리팩토링    
+테스트 코드는 변경하지 말고   
+**테스트 대상 코드(프로덕션 코드)를 개선하는 연습을 집중한다.**
 
