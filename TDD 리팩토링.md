@@ -278,7 +278,7 @@ public class StringCalculator {
         String[] values = text.split(",|:");
         return sum(values);
     }
-    public static int sum(String[] values){
+    private static int sum(String[] values){
         int result = 0;
         for(String value : values) {
             result += Integer.parseInt(value);
@@ -296,7 +296,7 @@ public class StringCalculator {
         String[] values = text.split(",|:");
         return sum(values);
     }
-    public static int sum(String[] values){
+    private static int sum(String[] values){
         int result = 0;
         for(String value : values) {
             result += Integer.parseInt(value);
@@ -321,10 +321,11 @@ public class StringCalculator {
     public static int splitAndSum(String text) {
         if (text==null || text.isEmpty()) return 0;
         String[] values = text.split(",|:");
-        return sum(toInt(values));
+        int[] numbers = toInt(values);
+        return sum(numbers);
     }
-
-    public static int[] toInt(String[] values){
+    
+    private static int[] toInt(String[] values){
         int[] numbers = new int[values.length];
         for(int i=0; i < values.length; i++){
             numbers[i] = Integer.parseInt(values[i]);
@@ -332,7 +333,7 @@ public class StringCalculator {
         return numbers;
     }
     
-    public static int sum(int[] numbers){
+    private static int sum(int[] numbers){
         int result = 0;
         for(int number : numbers) {
             result += number;
@@ -348,7 +349,195 @@ public class StringCalculator {
 이렇게 메서드가 한가지 일만 처리하게 한다면 이 메소드들이 재활용 될 수 있습니다.                
 왜냐하면 가장 작은 단위로 작게 쪼개져있기 때문에 각 추상화 개념에 맞는 경우 사용할 수 있습니다.        
 하지만 위와 같이 2가지 추삭적 개념이 존재하면 2가지 개념을 충족시키지 않는다면 재사용이 불가능합니다.     
-   
-  
-  
+      
+## 로컬 변수가 필요한가?  
+```java
 
+public class StringCalculator {
+    public static int splitAndSum(String text) {
+        if (text==null || text.isEmpty()) return 0;
+        String[] values = text.split(",|:");
+        int[] numbers = toInt(values);
+        return sum(numbers);
+    }
+
+    private static int[] toInt(String[] values){
+        int[] numbers = new int[values.length];
+        for(int i=0; i < values.length; i++){
+            numbers[i] = Integer.parseInt(values[i]);
+        }
+        return numbers;
+    }
+
+    private static int sum(int[] numbers){
+        int result = 0;
+        for(int number : numbers) {
+            result += number;
+        }
+        return result;
+    }
+
+}
+```
+또한 해당 로직에서 로컬변수가 꼭 필요한가 아닌가를 생각을해서 코드를 줄이도록 노력한다.   
+
+
+**개선 코드**
+```java
+
+public class StringCalculator {
+    public static int splitAndSum(String text) {
+        if (text==null || text.isEmpty()) return 0;
+        return sum(toInt(text.split(",|:")));
+    }
+
+    private static int[] toInt(String[] values){
+        int[] numbers = new int[values.length];
+        for(int i=0; i < values.length; i++){
+            numbers[i] = Integer.parseInt(values[i]);
+        }
+        return numbers;
+    }
+
+    private static int sum(int[] numbers){
+        int result = 0;
+        for(int number : numbers) {
+            result += number;
+        }
+        return result;
+    }
+
+}
+```
+
+## Compose Method 패턴 적용 
+메서드(함수)의 의도가 잘 드러나도록 동등한 수준의 작업을 하는 여러 단계로 나눈다. (추상화 레벨을 똑같이해라)     
+
+```java
+
+public class StringCalculator {
+    public static int splitAndSum(String text) {
+        if (text==null || text.isEmpty()) return 0;
+        return sum(toInt(text.split(",|:")));
+    }
+
+    private static int[] toInt(String[] values){
+        int[] numbers = new int[values.length];
+        for(int i=0; i < values.length; i++){
+            numbers[i] = Integer.parseInt(values[i]);
+        }
+        return numbers;
+    }
+
+    private static int sum(int[] numbers){
+        int result = 0;
+        for(int number : numbers) {
+            result += number;
+        }
+        return result;
+    }
+
+}
+```
+같은 경우 ```splitAndSum()```는 다른 두 메서드와 추상화 레벨이 동일하지 않다.    
+이유는 이유는 어떻게 계산하는지에 대한 계산식이 보이기 때문이다. -> 추상화 레벨이 올라간다.      
+그렇기에 계산식이 보이지 않게끔 해주어 추상화 레벨을 1단계로 낮추어준다.   
+
+**개선 코드**
+```java
+public class StringCalculator {
+    public static int splitAndSum(String text) {
+        if (isBlank(text)) return 0;
+        return sum(toInt(split(text)));
+    }
+
+    private static boolean isBlank(String text){
+        return text==null || text.isEmpty();
+    }
+    private static String[] split(String text){
+        return text.split(",|:");
+    }
+
+    private static int[] toInt(String[] values){
+        int[] numbers = new int[values.length];
+        for(int i=0; i < values.length; i++){
+            numbers[i] = Integer.parseInt(values[i]);
+        }
+        return numbers;
+    }
+
+    private static int sum(int[] numbers){
+        int result = 0;
+        for(int number : numbers) {
+            result += number;
+        }
+        return result;
+    }
+
+}
+```
+
+## 결과
+
+**미 개선 코드**
+```java
+public class StringCalculator {
+    public static int splitAndSum(String text) {
+        int result = 0;
+        if (text == null || text.isEmpty()) {
+            result = 0;
+        } else {
+            String[] values = text.split(",|:");
+            for(String value : values) {
+                result += Integer.parseInt(value);
+            }
+        }
+        return result;
+    }
+}
+```
+
+**개선 코드**
+```java
+public class StringCalculator {
+    public static int splitAndSum(String text) {
+        if (isBlank(text)) return 0;
+        return sum(toInt(split(text)));
+    }
+
+    private static boolean isBlank(String text){
+        return text==null || text.isEmpty();
+    }
+    private static String[] split(String text){
+        return text.split(",|:");
+    }
+
+    private static int[] toInt(String[] values){
+        int[] numbers = new int[values.length];
+        for(int i=0; i < values.length; i++){
+            numbers[i] = Integer.parseInt(values[i]);
+        }
+        return numbers;
+    }
+
+    private static int sum(int[] numbers){
+        int result = 0;
+        for(int number : numbers) {
+            result += number;
+        }
+        return result;
+    }
+
+}
+```
+이제 두 코드를 살펴보자       
+만약 내가 해당 코드및 로직을 알지 못한다는 가정하에 처음 이 코드를 접했다면 어떤 코드가 이해하기 쉬울까?        
+단순히 강의에서 말해서가 아니라 객관적으로 2번째 코드가 좋다고 말할 수 있다.          
+이유는 1번째는 내가 로직을 하나하나 따라가면서 처리해야하지만         
+2번째는 메서드의 이름만 보고도 내가 그 로직을 보지 않더라도 유추가 가능하기 때문이다.      
+      
+일단 주제인 연습에 관한 결론을 말하자면      
+**한번에 모든 원칙을 지키면서 리팩토링하려고 연습하지 마라**         
+**한번에 한 가지 명확하고 구체적인 목표를 가지고 연습하라**     
+  
+  
