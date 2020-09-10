@@ -817,3 +817,57 @@ public class Positive {
     }
 }
 ```
+
+### 클래스 분리 연습을 위해 활용할 수 있는 원칙   
+* 일급 콜렉션을 쓴다.    
+* 3개 이상의 인스턴스 변수를 가진 클래스를 쓰지 않는다.     
+  
+일급이란 좀전처럼 int number 라는 한개의 인스턴스 변수를 가지는 객체를 의미하는 것이고     
+일급 콜렉션은 콜렉션 자료형을 가지는 인스턴스 변수 한개를 포장하는 클래스를 만들라는 것입니다.          
+즉 Set, Map, List와 같은 클래스를 포장하는 클래스를 만들라는 것이며 아래와 같습니다.         
+      
+```java
+
+import java.util.Set;
+
+public class Lotto {
+    private static final int LOTTO_SIZE = 6;
+    
+    private final Set<LottoNumber> lotto;
+    
+    private Lotto(Set<LottoNumber> lotto){
+        if(lotto.size() != LOTTO_SIZE){
+            throw new IllegalArgumentException();
+        }
+        this.lotto = lotto;
+    }
+    
+}
+```
+
+### 3개 이상의 인스턴스 변수를 가진 클래스를 쓰지 않는다.   
+말그대로 클래스내의 인스턴스 변수를 3개이상 사용하지 않게끔 만드는 것입니다.    
+이게 진짜 어려운 연습입니다.   
+
+```java
+public class WinningLotto {
+    private final Lotto lotto;
+    private final LottoNumber no;
+    
+    public WinningLotto(Lotto lotto, LottoNumber no){
+        if(lotto.contains(no)) {
+            throw new IllegalArgumentException();
+        }
+        this.lotto = lotto;
+        this.no = no;
+    }
+    
+    public Rank match(Lotto userLotto){
+        int matchCount = lotto.match(userLotto);
+        boolean matchBonus = userLotto.contains(no);
+        return Rank.valueOf(matchCount, matchBonus);
+    }
+    
+}
+```
+
