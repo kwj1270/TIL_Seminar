@@ -184,11 +184,11 @@ public class LottoNumberAutoGenerator {
 <img width="832" alt="스크린샷 2020-11-11 오후 2 36 26" src="https://user-images.githubusercontent.com/50267433/98773008-5b5dce00-242b-11eb-9f09-149c6710d370.png">
 
 ```java
+@FunctionalInterface
 public interface ShuffleStrategy{
     public List<Integer> shuffle(List<Integer> numbers);
 }
 ```
-
 * 인터페이스가 LottoNumberAutoGenerator 와 인터페이스 메서드 구현 클래스들을 이어주는 역할      
 
 ### 3. 구현에 의존하기 보단 정의한 인터페이스에 의존하도록 코드를 작성
@@ -235,6 +235,11 @@ public class LottoNumberAutoGenerator {
   }
 }
 ```
+* 참조 대상이 바뀌더라도 코드를 변경할 일이 없다.   
+* 또한 처리 로직을 내부로 숨길 수 있다. -> 대신 이름을 잘 지어야한다.   
+
+### 3. 전체 코드
+
 
 
 
