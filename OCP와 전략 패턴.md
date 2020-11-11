@@ -357,7 +357,7 @@ class LottoNumberAutoGeneratorTest{
     @Test
     void 제대로_리턴하는지_확인(){
         List<Integer> actual = Arrays.asList(1, 2, 3, 4, 5, 6);
-        List<integer> expected = new LottoNumberAutoGenerator((numbers) -> actual).generate();
+        List<Integer> expected = new LottoNumberAutoGenerator((numbers) -> actual).generate();
         
         assertThat(actual).isEqualTo(expected);
     }
