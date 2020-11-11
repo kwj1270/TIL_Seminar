@@ -136,6 +136,48 @@ public class LottoNumberAutoGenerator {
 소프트웨어 구성 요소(컴포넌트, 클래스, 모듈, 함수)는 **확장에 대해서는 개방**돼야 하지만 **변경에 대해서는 폐쇄**되어야 한다.        
 **기존의 코드를 변경하지 않으면서** 기능을 추가할 수 있또록 설계가 되어야 한다는 뜻이다.        
    
+변경에 대해서 폐쇠되어야 한다 -> 기존의 코드를 변경시키지 않고 유지한 상태로 동작해야한다.    
+
+## 적용 방법
+1. 상속 (IS-A) : extends    
+**깨지기 쉬운 상위 클래스**       
+상속은 하위 클래스가 상위 클래스의 기능과 밀접하기 때문에 상위가 바뀌면 하위에 영향이 매우 크다.     
+이는 상속의 장점이자 단점이다.     
+    
+2. 컴포지션(HAS-A) : implements       
+    1. 변경(확장)될 것과 변하지 않을 것을 엄격히 구분      
+    2. 이 두 모듈이 만나는 지점에 인터페이스를 정의      
+    3. 구현에 의존하기 보단 정의한 인터페이스에 의존하도록 코드를 작성      
+    
+### 변경(확장)될 것과 변하지 않을 것을 엄격히 구분         
+```java
+public class LottoNumberAutoGenerator {
+  
+  // 변경이 되지 않는 코드 //
+  public List<Intenger> generate(int shuffle) {
+    List<Integer> numbers = new ArrayList<>();
+    for(int i=LottoNumber.MIN; i <= LottoNumber.MAX; i++){
+      numbers.add(i);
+    }
+  /////////////////////  
+  
+  // 변경이 일어나는 코드 // 
+  if(shuffle == RANDOM){
+      Collections.Shuffle(numbers);
+  } else if(shuffle == NOTHING){
+      Collections.sort(numbers);
+  } else if(shuffle == REVERSE){
+      Collections.reverse(numbers);
+  }
+  /////////////////////
+  
+  // 변경이 일어나지 않는 코드 // 
+  return numbers.subList(0. Lotto.LOTTO_NUMBER_SIZE);
+  /////////////////////
+  
+  }
+}
+```
 
    
 
