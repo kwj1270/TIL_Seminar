@@ -398,7 +398,9 @@ ___
 기존의 코드 변경 없이 행위를 자유롭게 바꿀 수 있게 해주는 OCP를 준수한 디자인 패턴     
 
 # Stratety Pattern VS Template Method 패턴   
-> 관련 링크 : https:/stackoverflow.com/questions/669271/what-is-the-difference-between-the-template-method-and-the-startegy-patterns
+> 관련 링크 :    
+> https:/stackoverflow.com/questions/669271/what-is-the-difference-between-the-template-method-and-the-startegy-patterns      
+          
 * Stratety Pattern : OCP 적용 방법을 HAS-A 패턴(인터페이스)을 이용한 방법      
 * Template Method Pattern : OCP 적용 방법을 IS-A 패턴(상속)을 이용한 방법       
   
