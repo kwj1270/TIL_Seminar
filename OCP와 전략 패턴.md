@@ -178,9 +178,69 @@ public class LottoNumberAutoGenerator {
   }
 }
 ```
-
+* 변경이 일어나는 코드를 인터페이스로 추출하는 과정을 진행하면 된다.    
+   
 ### 2. 모듈이 만나는 지점에 인터페이스 정의   
-<img width="829" alt="스크린샷 2020-11-11 오후 2 33 50" src="https://user-images.githubusercontent.com/50267433/98772843-0752e980-242b-11eb-9e16-c7197fe14e4b.png">
+<img width="832" alt="스크린샷 2020-11-11 오후 2 36 26" src="https://user-images.githubusercontent.com/50267433/98773008-5b5dce00-242b-11eb-9f09-149c6710d370.png">
+
+```java
+public interface ShuffleStrategy{
+    public List<Integer> shuffle(List<Integer> numbers);
+}
+```
+
+* 인터페이스가 LottoNumberAutoGenerator 와 인터페이스 메서드 구현 클래스들을 이어주는 역할      
+
+### 3. 구현에 의존하기 보단 정의한 인터페이스에 의존하도록 코드를 작성
+* 인터페이스에 의존해야지 다른 것에 의존하면 안 된다.             
+* 즉, LottoNumberAutoGenerator 가 구현 클래스를 직접 의존하면 안 된다.        
+        
+**좋지 않은 코드**   
+```java
+public class LottoNumberAutoGenerator {
+  private ShuffleRandomStrategy shuffleRandomStrategy; // 구현 클래스 직접 의존
+    
+  public List<Intenger> generate(int shuffle) {
+    List<Integer> numbers = new ArrayList<>();
+    for(int i=LottoNumber.MIN; i <= LottoNumber.MAX; i++){
+      numbers.add(i);
+    }
+  
+  numbers = shuffleRandomStrategy.shuffle(numbers); // 구현 클래스의 메서드 사용 
+  
+  return numbers.subList(0. Lotto.LOTTO_NUMBER_SIZE);
+  
+  }
+}
+```
+* 위와 같이 진행할 경우 OCP 및 DIP의 원칙을 위배한다.     
+* 기능을 변경하고자 한다면 해당 코드를 변경해야하는데 만약 100개 이상이라면? -> 끔찍      
+* 그렇기 때문에 인터페이스 의존성을 지니게하여 코드의 변경을 유발하지 않아야한다.     
+     
+**개선 코드**  
+```java
+public class LottoNumberAutoGenerator {
+  private ShuffleStrategy shuffleStrategy; // 인터페이스 의존 -> 관련 구현 클래스들을 받을 수 있고 변경하지 않아도 됨   
+    
+  public List<Intenger> generate(int shuffle) {
+    List<Integer> numbers = new ArrayList<>();
+    for(int i=LottoNumber.MIN; i <= LottoNumber.MAX; i++){
+      numbers.add(i);
+    }
+  
+  numbers = shuffleStrategy.shuffle(numbers); // 참조하고 있는 인스턴스에 맞는 shuffle 메서드 실행 -> 내부 로직 몰라도 됨 -> 추가로 이름 잘 지어야하는 이유 중 하나이기도  
+  
+  return numbers.subList(0. Lotto.LOTTO_NUMBER_SIZE);
+  
+  }
+}
+```
+
+
+
+
+
+
 
 
    
