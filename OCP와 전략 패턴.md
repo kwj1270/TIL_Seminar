@@ -397,7 +397,7 @@ ___
 ## 한 줄 요약          
 기존의 코드 변경 없이 행위를 자유롭게 바꿀 수 있게 해주는 OCP를 준수한 디자인 패턴     
 
-# Stratety Pattern VS Template Method 패턴   
+# Stratety Pattern VS Template Method 패턴  - 여기는 다시 정리해야할 필요가 있다. 이해가 조금 덜 된다.   
 > 관련 링크 :    
 > https:/stackoverflow.com/questions/669271/what-is-the-difference-between-the-template-method-and-the-startegy-patterns      
           
@@ -436,14 +436,31 @@ public class ConcreateTemplate extends Template{
 * Stratety Pattern : 인터페이스이기에 메소드에 관해서만 지정가능하다.   
 * Template Method Pattern : 추상 클래스이기에 기존 로직을 그대로 사용하고 추상 메서드에 관해서만 변경시 사용한다.  
 
+# 연습 문제 추천 
+```java
+private static double calculate(String operator, double result, double number){
+    if(operator.equals("+"){
+        result += number;
+    }
+    else if(operator.equals("+"){
+        result -= number;
+    }
+    else if(operator.equals("+"){
+        result *= number;
+    }
+    else if(operator.equals("+"){
+        result /= number;
+    }
+    return number; 
+}
+```
+- 추상화, 다형성  
+- 인터페이스
+- Map
+- Enum 
+- 람다 
+- 전략 패턴
 
-
-
-
-
-
-
-
-
-
-    
+1. 인터페이스로 추출 후 구현 클래스 만들기   
+2. 익명 클래스 + enum 으로 구현하기  
+3. 람다로 구현하기  
