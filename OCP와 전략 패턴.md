@@ -149,7 +149,7 @@ public class LottoNumberAutoGenerator {
     2. 이 두 모듈이 만나는 지점에 인터페이스를 정의      
     3. 구현에 의존하기 보단 정의한 인터페이스에 의존하도록 코드를 작성      
     
-### 변경(확장)될 것과 변하지 않을 것을 엄격히 구분         
+### 1. 변경(확장)될 것과 변하지 않을 것을 엄격히 구분         
 ```java
 public class LottoNumberAutoGenerator {
   
@@ -178,6 +178,10 @@ public class LottoNumberAutoGenerator {
   }
 }
 ```
+
+### 2. 모듈이 만나는 지점에 인터페이스 정의   
+<img width="829" alt="스크린샷 2020-11-11 오후 2 33 50" src="https://user-images.githubusercontent.com/50267433/98772843-0752e980-242b-11eb-9e16-c7197fe14e4b.png">
+
 
    
 
