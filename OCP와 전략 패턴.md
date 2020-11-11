@@ -58,20 +58,6 @@ public class LottoNumberAutoGenerator {
     } else if(shuffle == REVERSE){
         Collections.reverse(numbers);
     }
-    /*
-    if(shuffle == RANDOM){
-        Collections.Shuffle(numbers);
-    } else if(shuffle == NOTHING){
-        Collections.sort(numbers);
-    } else if(shuffle == REVERSE){
-        Collections.reverse(numbers);
-    } else if(shuffle == TEN_TO_TWENTY){
-        tenShuffle(numbers);
-    } else if(shuffle == TEN_TO_TWENTY){
-        twentyShuffle(numbers);
-    }
-    // 2가지 기능이 더 추가 된 것을 알 수 있다.  
-    */
     
     return numbers.subList(0. Lotto.LOTTO_NUMBER_SIZE);
   }
