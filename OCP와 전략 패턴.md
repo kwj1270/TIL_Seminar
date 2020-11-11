@@ -198,8 +198,12 @@ public interface ShuffleStrategy{
 **좋지 않은 코드**   
 ```java
 public class LottoNumberAutoGenerator {
-  private ShuffleRandomStrategy shuffleRandomStrategy; // 구현 클래스 직접 의존
+  private final ShuffleRandomStrategy shuffleRandomStrategy; // 구현 클래스 직접 의존
     
+  public LottoNumberAutoGenerator(ShuffleRandomStrategy shuffleRandomStrategy){
+    this.shuffleRandomStrategy = shuffleRandomStrategy;
+  }
+  
   public List<Intenger> generate(int shuffle) {
     List<Integer> numbers = new ArrayList<>();
     for(int i=LottoNumber.MIN; i <= LottoNumber.MAX; i++){
@@ -220,7 +224,11 @@ public class LottoNumberAutoGenerator {
 **개선 코드**  
 ```java
 public class LottoNumberAutoGenerator {
-  private ShuffleStrategy shuffleStrategy; // 인터페이스 의존 -> 관련 구현 클래스들을 받을 수 있고 변경하지 않아도 됨   
+  private final ShuffleStrategy shuffleStrategy; // 인터페이스 의존 -> 관련 구현 클래스들을 받을 수 있고 변경하지 않아도 됨   
+    
+  pulic LottoNumberAutoGenerator(ShuffleStrategy shuffleStrategy){
+    this.shuffleStrategy = shuffleStrategy;
+  } 
     
   public List<Intenger> generate(int shuffle) {
     List<Integer> numbers = new ArrayList<>();
@@ -240,10 +248,101 @@ public class LottoNumberAutoGenerator {
 
 ### 3. 전체 코드
 
+**LottoNumberAutoGenerator - class**
+```java
+public class LottoNumberAutoGenerator {
+  private final ShuffleStrategy shuffleStrategy; // 인터페이스 의존 -> 관련 구현 클래스들을 받을 수 있고 변경하지 않아도 됨   
+    
+  pulic LottoNumberAutoGenerator(ShuffleStrategy shuffleStrategy){
+    this.shuffleStrategy = shuffleStrategy;
+  } 
+    
+  public List<Intenger> generate(int shuffle) {
+    List<Integer> numbers = new ArrayList<>();
+    for(int i=LottoNumber.MIN; i <= LottoNumber.MAX; i++){
+      numbers.add(i);
+    }
+  
+  numbers = shuffleStrategy.shuffle(numbers); // 참조하고 있는 인스턴스에 맞는 shuffle 메서드 실행 -> 내부 로직 몰라도 됨 -> 추가로 이름 잘 지어야하는 이유 중 하나이기도  
+  
+  return numbers.subList(0. Lotto.LOTTO_NUMBER_SIZE);
+  
+  }
+}
+```
+   
+**ShuffleStrategy - interface**    
+```java
+@FunctionalInterface
+public interface ShuffleStrategy{
+    public List<Integer> shuffle(List<Integer> numbers);
+}
+```
 
+**ShuffleRandomStrategy - class implements interface**    
+```java
+pulblic class ShuffleRandomStrategy implements ShuffleStrategy {
+    private static ShuffleRandomStrategy shuffleRandomStrategy = new ShuffleRandomStrategy();
+    
+    private ShuffleRandomStrategy(){}
+    
+    public static ShuffleRandomStrategy getInstance(){
+        return instance;
+    }
+    
+    public List<Integer> shuffle(final List<Integer> numbers){
+        Collections.shuffle(numbers);
+        return numbers;
+    }
+}
+```
 
+**ShuffleReverseStrategy - class implements interface**    
+```java
+pulblic class ShuffleReverseStrategy implements ShuffleStrategy {
+    private static ShuffleReverseStrategy shuffleReverseStrategy = new ShuffleReverseStrategy();
+    
+    private ShuffleReverseStrategy(){}
+    
+    public static ShuffleReverseStrategy getInstance(){
+        return instance;
+    }
+    
+    public List<Integer> shuffle(final List<Integer> numbers){
+        Collections.reverse(numbers);
+        return numbers;
+    }
+}
+```
 
+**ShuffleNothingStrategy - class implements interface**    
+```java
+pulblic class ShuffleNothingStrategy implements ShuffleStrategy {
+    private static ShuffleNothingStrategy shuffleNothingStrategy = new ShuffleNothingStrategy();
+    
+    private ShuffleNothingStrategy(){}
+    
+    public static ShuffleNothingStrategy getInstance(){
+        return instance;
+    }
+    
+    public List<Integer> shuffle(final List<Integer> numbers){
+        Collections.sort(numbers);
+        return numbers;
+    }
+}
+```
 
+**main - Method exe class**
+```java
+class Main{
+    public static void main(String[] args){
+        LottoNumberAutoGenerator lottoNumberAutoGenerator = new LottoNumberAutoGenerator(ShuffleRandomStrategy.getInstance());
+        // LottoNumberAutoGenerator lottoNumberAutoGenerator = new LottoNumberAutoGenerator(ShuffleReverseStrategy.getInstance());
+        // LottoNumberAutoGenerator lottoNumberAutoGenerator = new LottoNumberAutoGenerator(ShuffleNothingStrategy.getInstance());
+    }
+}
+```
 
 
 
