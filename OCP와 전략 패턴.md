@@ -21,8 +21,8 @@ if-else 는 조건문이자 분기점이라는 표현을 많이 사용한다.
 ## 오토 로또 생성 코드  
 **첫 구현 당시**
 ```java
-public class LottoNumberAutoGenerator {
-  
+public class LottoNumbersAutoGenerator {
+
   public List<Intenger> generate() {
     List<Integer> numbers = new ArrayList<>();
     for(int i=LottoNumber.MIN; i <= LottoNumber.MAX; i++){
@@ -41,7 +41,7 @@ public class LottoNumberAutoGenerator {
 
 **두번째 구현 당시 - 기능 추가**
 ```java
-public class LottoNumberAutoGenerator {
+public class LottoNumbersAutoGenerator {
   
   public List<Intenger> generate(int shuffle) {
     List<Integer> numbers = new ArrayList<>();
@@ -64,7 +64,7 @@ public class LottoNumberAutoGenerator {
 ```
 **세번째 구현 당시 - 기능 추가**
 ```java
-public class LottoNumberAutoGenerator {
+public class LottoNumbersAutoGenerator {
   
   public List<Intenger> generate(int shuffle) {
     List<Integer> numbers = new ArrayList<>();
@@ -89,7 +89,7 @@ public class LottoNumberAutoGenerator {
 ```
 **네번째 구현 당시 - 기능 추가**
 ```java
-public class LottoNumberAutoGenerator {
+public class LottoNumbersAutoGenerator {
   
   public List<Intenger> generate(int shuffle) {
     List<Integer> numbers = new ArrayList<>();
@@ -151,7 +151,7 @@ public class LottoNumberAutoGenerator {
     
 ### 1. 변경(확장)될 것과 변하지 않을 것을 엄격히 구분         
 ```java
-public class LottoNumberAutoGenerator {
+public class LottoNumbersAutoGenerator {
   
   // 변경이 되지 않는 코드 //
   public List<Intenger> generate(int shuffle) {
@@ -197,10 +197,10 @@ public interface ShuffleStrategy{
         
 **좋지 않은 코드**   
 ```java
-public class LottoNumberAutoGenerator {
+public class LottoNumbersAutoGenerator {
   private final ShuffleRandomStrategy shuffleRandomStrategy; // 구현 클래스 직접 의존
     
-  public LottoNumberAutoGenerator(ShuffleRandomStrategy shuffleRandomStrategy){
+  public LottoNumbersAutoGenerator(ShuffleRandomStrategy shuffleRandomStrategy){
     this.shuffleRandomStrategy = shuffleRandomStrategy;
   }
   
@@ -223,10 +223,14 @@ public class LottoNumberAutoGenerator {
      
 **개선 코드**  
 ```java
-public class LottoNumberAutoGenerator {
+public class LottoNumbersAutoGenerator {
   private final ShuffleStrategy shuffleStrategy; // 인터페이스 의존 -> 관련 구현 클래스들을 받을 수 있고 변경하지 않아도 됨   
     
-  pulic LottoNumberAutoGenerator(ShuffleStrategy shuffleStrategy){
+  public LottoNumbersAutoGenerator(){
+    this(ShuffleRandomStrategy.getInstance());
+  }   
+  
+  pulic LottoNumbersAutoGenerator(ShuffleStrategy shuffleStrategy){
     this.shuffleStrategy = shuffleStrategy;
   } 
     
@@ -250,10 +254,14 @@ public class LottoNumberAutoGenerator {
 
 **LottoNumberAutoGenerator - class**
 ```java
-public class LottoNumberAutoGenerator {
+public class LottoNumbersAutoGenerator {
   private final ShuffleStrategy shuffleStrategy; // 인터페이스 의존 -> 관련 구현 클래스들을 받을 수 있고 변경하지 않아도 됨   
+  
+  public LottoNumbersAutoGenerator(){
+    this(ShuffleRandomStrategy.getInstance());
+  } 
     
-  pulic LottoNumberAutoGenerator(ShuffleStrategy shuffleStrategy){
+  pulic LottoNumbersAutoGenerator(ShuffleStrategy shuffleStrategy){
     this.shuffleStrategy = shuffleStrategy;
   } 
     
@@ -337,9 +345,9 @@ pulblic class ShuffleNothingStrategy implements ShuffleStrategy {
 ```java
 class Main{
     public static void main(String[] args){
-        LottoNumberAutoGenerator lottoNumberAutoGenerator = new LottoNumberAutoGenerator(ShuffleRandomStrategy.getInstance());
-        // LottoNumberAutoGenerator lottoNumberAutoGenerator = new LottoNumberAutoGenerator(ShuffleReverseStrategy.getInstance());
-        // LottoNumberAutoGenerator lottoNumberAutoGenerator = new LottoNumberAutoGenerator(ShuffleNothingStrategy.getInstance());
+        LottoNumbersAutoGenerator lottoNumbersAutoGenerator = new LottoNumbersAutoGenerator(ShuffleRandomStrategy.getInstance());
+        // LottoNumbersAutoGenerator lottoNumbersAutoGenerator = new LottoNumbersAutoGenerator(ShuffleReverseStrategy.getInstance());
+        // LottoNumbersAutoGenerator lottoNumbersAutoGenerator = new LottoNumbersAutoGenerator(ShuffleNothingStrategy.getInstance());
     }
 }
 ```
@@ -357,7 +365,7 @@ class LottoNumberAutoGeneratorTest{
     @Test
     void 제대로_리턴하는지_확인(){
         List<Integer> actual = Arrays.asList(1, 2, 3, 4, 5, 6);
-        List<Integer> expected = new LottoNumberAutoGenerator((numbers) -> actual).generate();
+        List<Integer> expected = new LottoNumbersAutoGenerator((numbers) -> actual).generate();
         
         assertThat(actual).isEqualTo(expected);
     }
@@ -365,11 +373,22 @@ class LottoNumberAutoGeneratorTest{
 ```
 
 # 전략 패턴
+> OCP를 준수하기 위해 여태 한 방식이 전략 패턴    
+    
 ## 전략이란?   
 **전략 :** 어떤 목적을 달성하기 위해 일을 수행하는 방식, 비즈니스 규칙, 문제를 해결하는 알고리즘 등...  
 (Random/Nothing/Reverse)       
 
 * 디자인 패턴의 꽃   
 * 전략을 쉽게 바꿀 수 있도록 해주는 디자인 패턴   
-* 행위를 클래스로 캡슐해 동적으로 행위를 자유롭게 바꿀 수 있게 해주는 패턴  
+* 행위를 클래스로 캡슐화해 동적으로 행위를 자유롭게 바꿀 수 있게 해주는 패턴  
 * 새로운 기능의 추가가 기존의 코드에 영향을 미치지 못하게 하므로 OCP를 만족 
+
+___
+* Context : LottoNumbersAutoGenerato 와 같이 인스턴스를 가진 대상   
+    * Strategy 패턴을 이용하는 역할을 수행        
+    * 필요에 따라 동적으로 구체적인 전략을 바꿀수 있도록 한다.(DI)    
+* Strategy : ShuffleStrategy 와 같이 추상화된 인터페이스나 클래스    
+    * 인터페이스나 추상 클래스로 외부에서 동일한 방식으로 알고리즘을 호출하는 방법을 명시한다.         
+* ConcreateStrategy : ShuffleRandomStrategy 와 같이 Strategy 를 구현한 클래스     
+    * 전력패턴에서 명시한 알고리즘을 실제로 구현한 클래스      
