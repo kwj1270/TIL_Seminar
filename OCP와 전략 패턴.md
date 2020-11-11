@@ -77,6 +77,63 @@ public class LottoNumberAutoGenerator {
   }
 }
 ```
+**세번째 구현 당시 - 기능 추가**
+```java
+public class LottoNumberAutoGenerator {
+  
+  public List<Intenger> generate(int shuffle) {
+    List<Integer> numbers = new ArrayList<>();
+    for(int i=LottoNumber.MIN; i <= LottoNumber.MAX; i++){
+      numbers.add(i);
+    }
+    
+    if(shuffle == RANDOM){
+        Collections.Shuffle(numbers);
+    } else if(shuffle == NOTHING){
+        Collections.sort(numbers);
+    } else if(shuffle == REVERSE){
+        Collections.reverse(numbers);
+    } else if(shuffle == TEN_TO_TWENTY){
+        tenShuffle(numbers);
+    } else if(shuffle == TEN_TO_TWENTY){
+        twentyShuffle(numbers);
+    }
+    return numbers.subList(0. Lotto.LOTTO_NUMBER_SIZE);
+  }
+}
+```
+**네번째 구현 당시 - 기능 추가**
+```java
+public class LottoNumberAutoGenerator {
+  
+  public List<Intenger> generate(int shuffle) {
+    List<Integer> numbers = new ArrayList<>();
+    for(int i=LottoNumber.MIN; i <= LottoNumber.MAX; i++){
+      numbers.add(i);
+    }
+    
+    if(shuffle == RANDOM){
+        Collections.Shuffle(numbers);
+        doSomethingA(numbers);
+    } else if(shuffle == NOTHING){
+        Collections.sort(numbers);
+        doSomethingB(numbers);
+    } else if(shuffle == REVERSE){
+        Collections.reverse(numbers);
+        doSomethingC(numbers);
+        doSomethingA(numbers);
+    } else if(shuffle == TEN_TO_TWENTY){
+        tenShuffle(numbers);
+        doSomethingF(numbers);
+        doSomethingB(numbers);
+    } else if(shuffle == TEN_TO_TWENTY){
+        twentyShuffle(numbers);
+    }
+    return numbers.subList(0. Lotto.LOTTO_NUMBER_SIZE);
+  }
+}
+```   
+   
 * `계속되는 기능 추가 -> 복잡도 증가 -> 추가, 수정이 힘들어진다.`
 * 이 같이 기능이 늘어날 수록 코드의 길이는 증가되고 가독성 또한 매우 안 좋아진다.  
 * 그리고 여기서 사용된 상수, 로직을 다 관리해야한다는 문제점이 있다.   
