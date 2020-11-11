@@ -411,17 +411,20 @@ public interface Strategy {
 }  
 
 public class ConcreateStrategy implements Strategy{
+    
+    @Override
     public void method(){};
+    
 }  
 ```
 
 **Template Method Pattern :**    
 ```java
-public abstract class Strategy {
+public abstract class Template {
     public void method();
 }  
 
-public class ConcreateStrategy extends Strategy{
+public class ConcreateTemplate extends Template{
     // 기존 코드 
     
     @Override
@@ -430,6 +433,9 @@ public class ConcreateStrategy extends Strategy{
     // 기존 코드     
 }  
 ```
+* Stratety Pattern : 인터페이스이기에 메소드에 관해서만 지정가능하다.   
+* Template Method Pattern : 추상 클래스이기에 기존 로직을 그대로 사용하고 추상 메서드에 관해서만 변경시 사용한다.  
+
 
 
 
