@@ -399,8 +399,10 @@ ___
 
 # Stratety Pattern VS Template Method 패턴  - 여기는 다시 정리해야할 필요가 있다. 이해가 조금 덜 된다.   
 > 관련 링크 :    
-> https:/stackoverflow.com/questions/669271/what-is-the-difference-between-the-template-method-and-the-startegy-patterns      
-          
+> https:/stackoverflow.com/questions/669271/what-is-the-difference-between-the-template-method-and-the-startegy-patterns    
+> https://www.youtube.com/watch?v=lJES5TQTTWE   
+> https://www.youtube.com/watch?v=q3_WXP9pPUQ   
+           
 * Stratety Pattern : OCP 적용 방법을 HAS-A 패턴(인터페이스)을 이용한 방법      
 * Template Method Pattern : OCP 적용 방법을 IS-A 패턴(상속)을 이용한 방법       
   
