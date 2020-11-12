@@ -43,14 +43,20 @@ console.log(location.origin);
 ```
 https://taggle.kr <- https 이므로 기본 포트가 443이다.  
 
-https://taggle.kr/bookmark O
-http://taggle.kr X -> Protocol이 다르다   
-https://taggle.kr:443/bookmark?page=1 O -> RFC 표준상 http | https 에서 포트 번호는 생략가능하므로 443이 맞다면 같은 출처다  
-https://api.taggle.kr X -> Host가 다르다 
-https://taggle.kr:8080 <- 포트가 다르다. 
+https://taggle.kr/bookmark O  
+http://taggle.kr X -> Protocol이 다르다.       
+https://taggle.kr:443/bookmark?page=1 O -> RFC 표준상 http | https 에서 포트 번호는 생략가능하므로 443이 맞다면 같은 출처다.     
+https://api.taggle.kr X -> Host가 다르다.      
+https://taggle.kr:8080 X <- 포트가 다르다. (IE 에서는 O)     
+    
+사실 출처가 RFC에서 정확한 표준이 없다보니까 프로토콜-호스트-포트까지 동일 정책으로 인정하는지는 브라우저마다의 구현 정책에 따라 다르다.  
+하지만 대부분의 브라우저에서는 프로토콜-호스트-포트까지 동일 정책으로 인정해주며 IE에서만 아니다 -> 사용 하지말자 ^^  
 ```
-  
+     
 # CORS & SOP가 나오게 된 이유  
+* CSRF    
+* XSS     
+
 # CORS 시나리오  
 # 결론 
 # 참고 
