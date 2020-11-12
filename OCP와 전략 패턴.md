@@ -440,21 +440,21 @@ public class ConcreateTemplate extends Template{
 
 # 연습 문제 추천 
 ```java
-private static double calculate(String operator, double result, double number){
-    if(operator.equals("+"){
-        result += number;
+    private static double calculate(String operator, double result, double number){
+        if(operator.equals("+")){
+            result += number;
+        }
+        else if(operator.equals("+")){
+            result -= number;
+        }
+        else if(operator.equals("+")){
+            result *= number;
+        }
+        else if(operator.equals("+")){
+            result /= number;
+        }
+        return result;
     }
-    else if(operator.equals("+"){
-        result -= number;
-    }
-    else if(operator.equals("+"){
-        result *= number;
-    }
-    else if(operator.equals("+"){
-        result /= number;
-    }
-    return number; 
-}
 ```
 - 추상화, 다형성  
 - 인터페이스
