@@ -176,12 +176,50 @@ set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
 |omit|모든 요청에 인증 정보를 담지 않는다|
 
 * fetch() 나 비동기 API들은 일반적으로 Cookie를 담아서 보내지 않습니다.   
+  * `fetch(credentialed : include)`
 * Cookie를 담을 수 있는 옵션을 주어 서버에서 인증이 된 사용자인지 한번 더 검증을 거치는 작업이다.   
    
+### 코드로 살펴보기 
+* 환경 : 크롬 시작페이지에서 실행
+* F12 키를 눌러 console 에서 진행   
+   
+**Request 보내기**
+```javascript
+fetch('https://rutgo-letsgo.tistory.com/rss', {credentials: "include"});
+```
 
-	
-	
+**Request 헤더**
+```javascript
+Accept: */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7
+Connection: keep-alive
+Host: rutgo-letsgo.tistory.com
+Origin: https://www.google.com
+Referer: https://www.google.com/
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: cross-site
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36
+```
 
+**Response 헤더**
+```javascript
+Access-Control-Allow-Origin: http://rutgo-letsgo.tistory.com
+Content-Encoding: gzip
+Content-Type: text/xml; charset=utf-8
+Date: Fri, 13 Nov 2020 07:37:56 GMT
+P3P: CP='ALL DSP COR MON LAW OUR LEG DEL'
+Transfer-Encoding: chunked
+Vary: Accept-Encoding
+X-UA-Compatible: IE=Edge
+```
+
+**비교**
+```javascript 
+Request   | Origin: https://www.google.com
+Response  | Access-Control-Allow-Origin: http://rutgo-letsgo.tistory.com
+```
 
 # 결론 
 
@@ -192,4 +230,5 @@ https://developer.mozilla.org/ko/docs/Web/HTTP/CORS
 https://developer.mozilla.org/ko/docs/Glossary/Preflight_request     
 https://minzoovv.dev/HTTP/cors/   
 https://brownbears.tistory.com/336   
+https://ko.javascript.info/fetch-crossorigin#ref-561  
 동영상 :   
