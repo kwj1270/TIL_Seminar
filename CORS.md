@@ -90,11 +90,18 @@ Origin == Access-Control-Allow-Origin
     * 기본적으로 웹 클라이언트 어플리케이션이 다른 출처의 리소스를 요청할 때는 HTTP 프로토콜을 사용하여 요청을 보냅니다.   
 * 서버 : 요청에 대한 응답을 할 때     
 응답 헤더의 `Access-Control-Allow-Origin`필드 값에 `서버의 리소스를 접근하는 것이 허용된 출처`를 넣어서 응답합니다.             
-* 이후, 브라우저는 요청의 `Origin`과 응답의 `Access-Control-Allow-Origin`을 비교하여 이 응답이 유효한 응답인지 아닌지를 판단합니다.   
+* 이후, 브라우저는 요청의 `Origin`과 응답의 `Access-Control-Allow-Origin`을 비교하여 이 응답이 **유효한 응답인지 아닌지를 판단**합니다.   
     * 유효한 응답 : 본 요청을 보낸다.   
-    * 유효하지 않은 응답 : 요청을 보내지 않는다.  
+    * 유효하지 않은 응답 : 본 요청을 보내지 않는다.  
 
+```javascript
+const headers = new Headers({'Content-Type':'text/html',});
+fetch('https://github.com/kwj1270', {headers});
+```
 
+```javascript
+Access to fetch at 'https://github.com/kwj1270' from origin 'chrome://new-tab-page' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
+```
  
 # 결론 
 
