@@ -10,12 +10,13 @@
 |https://|github.com|:433/|kwj1270|?q=김우재 &sort=oldset|#foo|
 
     
-출처를 판단하는 기준은 `Protocol-Host-Port` 가 같다면 같은 출처라고 가정한다.      
-단, Port는 브라우저마다 정책이 다르다.(IE에서는 포트 포함 안함)      
+* 출처를 판단하는 기준으로 `Protocol-Host-Port` 가 같다면 같은 출처라고 말을한다.      
+* 단, Port는 브라우저마다 정책이 다르다.(IE에서는 포트 포함 안함)      
    
 **출처 확인 방법**
 ```javascript
 console.log(location.origin);  
+https://github.com <- 응답
 ```
       
 # SOP란?    
@@ -53,7 +54,9 @@ console.log(location.origin);
 * 출처에 대한 RFC의 정확한 표준이 없어서 `프로토콜-호스트-포트`까지 동일 출처로 인정하는지는 **각각의 브라우저 구현 정책에 따라 다르다.**     
 * 대부분의 브라우저에서는 `프로토콜-호스트-포트`까지 동일 출처로 인정해준다.      
 * IE에서만은 `프로토콜-호스트`정책을 이용해서 특별하게 관리해줘야 한다. (차라리 사용 하지말자 ^^)      
-     
+
+![ie_is_trash](https://user-images.githubusercontent.com/50267433/99033468-482f3780-25be-11eb-8619-65a1d8aab570.jpg)    
+  
 # CORS & SOP가 나오게 된 이유  
 * CSRF    
 * XSS     
@@ -62,14 +65,17 @@ CORS와 SOP는
 인터넷의 공개성으로 인해 생기는 보안 취약점들을 이용한 CSRF 와 XSS 같은 공격 수단을 방어하기 위한 정책이다.    
     
 # 동일 출처 인식 방법은? 
+![cors](https://user-images.githubusercontent.com/50267433/99033464-45ccdd80-25be-11eb-8fcb-046c533f1b2e.png)    
+   
 ```
 Origin == Access-Control-Allow-Origin
 ```
 * Requset 요청에 `Origin 헤더` 존재      
 * Response 응답에 `Access-Control-Allow-Origin 헤더` 존재      
 * Request의 `Origin 헤더`와 Response의 `Access-Control-Allow-Origin 헤더`가 같으면 같은 출처라 인식         
-     
+
 # CORS 시나리오  
+![cors-preflight](https://user-images.githubusercontent.com/50267433/99033458-3fd6fc80-25be-11eb-869b-1278e7bf17f0.png)
 
 
 
