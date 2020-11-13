@@ -94,19 +94,62 @@ Origin == Access-Control-Allow-Origin
     * 유효한 응답 : 본 요청을 보낸다.   
     * 유효하지 않은 응답 : 본 요청을 보내지 않는다.  
 
+### 코드로 살펴보기 
+* 환경 : 크롬 시작페이지에서 실행
+* F12 키를 눌러 console 에서 진행   
+   
+**Request 보내기**
 ```javascript
 const headers = new Headers({'Content-Type':'text/html',});
-fetch('https://github.com/kwj1270', {headers});
+fetch('https://rutgo-letsgo.tistory.com/rss', {headers});
 ```
 
+**Request 헤더**
 ```javascript
-Access to fetch at 'https://github.com/kwj1270' 
+OPTIONS /rss HTTP/1.1
+Host: rutgo-letsgo.tistory.com
+Connection: keep-alive
+Accept: */*
+Access-Control-Request-Method: GET
+Access-Control-Request-Headers: content-type
+Origin: chrome://new-tab-page 
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: cross-site
+Sec-Fetch-Dest: empty
+Accept-Encoding: gzip, deflate, br
+Accept-Language: ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7
+```
+
+**Response 헤더**
+```javascript
+Access-Control-Allow-Origin: http://rutgo-letsgo.tistory.com
+Content-Encoding: gzip
+Content-Type: text/xml; charset=utf-8
+Date: Fri, 13 Nov 2020 06:43:49 GMT
+P3P: CP='ALL DSP COR MON LAW OUR LEG DEL'
+Transfer-Encoding: chunked
+Vary: Accept-Encoding
+X-UA-Compatible: IE=Edge
+```
+
+**비교**
+```javascript 
+Request   | Origin: chrome://new-tab-page 
+Response  | Access-Control-Allow-Origin: http://rutgo-letsgo.tistory.com
+```
+
+**결과 - ERROR**
+```javascript
+Access to fetch at 'https://rutgo-letsgo.tistory.com/rss' 
 from origin 'chrome://new-tab-page' has been blocked by CORS policy: 
 Response to preflight request doesn't pass access control check: 
-No 'Access-Control-Allow-Origin' header is present on the requested resource. 
-If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
+The 'Access-Control-Allow-Origin' header has a value 'http://rutgo-letsgo.tistory.com' that is not equal to the supplied origin. 
+Have the server send the header with a valid value, or, if an opaque response serves your needs, 
+set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
 ```
- 
+
+
 # 결론 
 
 # 참고 
