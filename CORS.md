@@ -69,16 +69,6 @@ CORS와 SOP는 인터넷의 공개성으로 인해 생기는 보안 취약점들
 Origin == Access-Control-Allow-Origin
 ```
     
-* 브라우저는 요청을 한번에 보내지 않고 예비 요청과 본 요청을 나누어서 서버로 전송    
-* 자바스크립트 : `fetch()` 메서드 수행 -> url 요청      
-* 브라우저 : 요청 헤더에 Origin이라는 필드에 `요청을 보내는 출처`를 함께 담아 요청합니다.            
-    * 기본적으로 웹 클라이언트 어플리케이션이 다른 출처의 리소스를 요청할 때는 HTTP 프로토콜을 사용하여 요청을 보냅니다.   
-* 서버 : 요청에 대한 응답을 할 때     
-응답 헤더의 `Access-Control-Allow-Origin`필드 값에 `서버의 리소스를 접근하는 것이 허용된 출처`를 넣어서 응답합니다.             
-* 이후, 브라우저는 요청의 `Origin`과 응답의 `Access-Control-Allow-Origin`을 비교하여 이 응답이 **유효한 응답인지 아닌지를 판단**합니다.   
-    * 유효한 응답 : 본 요청을 보낸다.   
-    * 유효하지 않은 응답 : 본 요청을 보내지 않는다.  
-       
 **정리**    
 * Requset 요청에 `Origin 헤더` 존재      
 * Response 응답에 `Access-Control-Allow-Origin 헤더` 존재      
@@ -101,7 +91,6 @@ Origin == Access-Control-Allow-Origin
   * 다름 : 에러를 발생 
   * 접근 가능 : 본 요청을 보내 요청을 처리   
 * **서버 사이드 영역이 아닌 브라우저 영역이기 때문에 서버는 200대의 성공 코드를 반환한다.**     
-  
 
 ### 코드로 살펴보기 
 * 환경 : 크롬 시작페이지에서 실행
@@ -158,13 +147,19 @@ Have the server send the header with a valid value, or, if an opaque response se
 set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
 ```
 
+## Simple Request
+> 단순 요청   
+   
+   
+
 
 # 결론 
 
 # 참고 
 블로그 :   
-https://evan-moon.github.io/2020/05/21/about-cors/        
-https://developer.mozilla.org/ko/docs/Web/HTTP/CORS   
-https://developer.mozilla.org/ko/docs/Glossary/Preflight_request   
-
+https://evan-moon.github.io/2020/05/21/about-cors/          
+https://developer.mozilla.org/ko/docs/Web/HTTP/CORS     
+https://developer.mozilla.org/ko/docs/Glossary/Preflight_request     
+https://minzoovv.dev/HTTP/cors/   
+https://brownbears.tistory.com/336   
 동영상 :   
