@@ -90,8 +90,10 @@ Origin == Access-Control-Allow-Origin
 * 요청에 Origin 과 응답의 Access-Control-Allow-Origin 를 브라우저가 비교해 출처를 판단
   * 다름 : 에러를 발생 
   * 접근 가능 : 본 요청을 보내 요청을 처리   
-* **서버 사이드 영역이 아닌 브라우저 영역이기 때문에 서버는 200대의 성공 코드를 반환한다.**     
-
+* **서버 사이드 영역이 아닌 브라우저 영역이기 때문에 서버는 200대의 성공 코드를 반환한다.**        
+  * 서버로부터 응답을 받은 후, 브라우저에서 동일 출처인지 비교하는 것     
+  * CORS 정책 위반으로 인한 에러는 예비 요청의 성공 여부와 별 상관이 없다      
+       
 ### 코드로 살펴보기 
 * 환경 : 크롬 시작페이지에서 실행
 * F12 키를 눌러 console 에서 진행   
@@ -153,10 +155,14 @@ set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
 ![simple-request](https://user-images.githubusercontent.com/50267433/99038351-af51e980-25c8-11eb-8c59-e747f00ffdca.png)      
     
 * 요청의 메서드는 `GET, HEAD, POST` 중 하나여야 한다.  
+  * `DELETE` 를 제외하고는 가능      
 * `Accept, Accept-Language, Content-Language, Content-Type, DPR, Downlink, Save-Data, Viewport-Width, Width`   
 를 제외한 헤더를 사용하면 안된다.
+  * `Authorization`과 같은 JWT의 헤더를 사용할 수 없어 REST API 에서는 사용하기 힘들다.         
 * 만약 `Content-Type`를 사용하는 경우에는 `application/x-www-form-urlencoded, multipart/form-data, text/plain`만 허용된다
-   
+   * `text/xml` 이나 `application/json` 를 사용할 수 없어 REST API에서는 사용하기 힘들다.  
+  
+가장 간단한 방법이지만 까다로운 제약사항으로 우리가 실제로 사용하기는 힘듭니다.    
 
 ## Credentialed Request
 >     
