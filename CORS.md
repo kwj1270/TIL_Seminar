@@ -152,9 +152,10 @@ set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
         
 ![simple-request](https://user-images.githubusercontent.com/50267433/99038351-af51e980-25c8-11eb-8c59-e747f00ffdca.png)      
     
-* 요청의 메서드는 GET, HEAD, POST 중 하나여야 한다.  
-* Accept, Accept-Language, Content-Language, Content-Type, DPR, Downlink, Save-Data, Viewport-Width, Width를 제외한 헤더를 사용하면 안된다.
-* 만약 Content-Type를 사용하는 경우에는 application/x-www-form-urlencoded, multipart/form-data, text/plain만 허용된다
+* 요청의 메서드는 `GET, HEAD, POST` 중 하나여야 한다.  
+* `Accept, Accept-Language, Content-Language, Content-Type, DPR, Downlink, Save-Data, Viewport-Width, Width`   
+를 제외한 헤더를 사용하면 안된다.
+* 만약 `Content-Type`를 사용하는 경우에는 `application/x-www-form-urlencoded, multipart/form-data, text/plain`만 허용된다
    
 
 ## Credentialed Request
