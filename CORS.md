@@ -58,6 +58,8 @@ https://github.com <- 응답
 ![ie_is_trash](https://user-images.githubusercontent.com/50267433/99033468-482f3780-25be-11eb-8619-65a1d8aab570.jpg)    
   
 # CORS & SOP가 나오게 된 이유  
+![cors](https://user-images.githubusercontent.com/50267433/99033464-45ccdd80-25be-11eb-8fcb-046c533f1b2e.png)    
+   
 * CSRF    
 * XSS     
     
@@ -65,7 +67,6 @@ CORS와 SOP는
 인터넷의 공개성으로 인해 생기는 보안 취약점들을 이용한 CSRF 와 XSS 같은 공격 수단을 방어하기 위한 정책이다.    
     
 # 동일 출처 인식 방법은? 
-![cors](https://user-images.githubusercontent.com/50267433/99033464-45ccdd80-25be-11eb-8fcb-046c533f1b2e.png)    
    
 ```
 Origin == Access-Control-Allow-Origin
