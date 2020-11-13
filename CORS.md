@@ -74,15 +74,18 @@ Origin == Access-Control-Allow-Origin
 * Request의 `Origin 헤더`와 Response의 `Access-Control-Allow-Origin 헤더`가 같으면 같은 출처라 인식         
 
 # CORS 시나리오  
-![cors-preflight](https://user-images.githubusercontent.com/50267433/99033458-3fd6fc80-25be-11eb-869b-1278e7bf17f0.png)
-
 * Preflight Request   
 * Simple Request   
 * Credentialed Request      
 
 ## Preflight Request      
+> 예비 요청       
+   
+![cors-preflight](https://user-images.githubusercontent.com/50267433/99033458-3fd6fc80-25be-11eb-869b-1278e7bf17f0.png)    
 
-
+* 자바스크립트 : `fetch()` 메서드 수행 -> url 요청    
+* 브라우저 : 요청 헤더에 Origin이라는 필드에 요청을 보내는 출처를 함께 담아보낸다.      
+    * 기본적으로 웹 클라이언트 어플리케이션이 다른 출처의 리소스를 요청할 때는 HTTP 프로토콜을 사용하여 요청을 보냅니다. 
 
 
 # 결론 
