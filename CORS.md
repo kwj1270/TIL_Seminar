@@ -165,10 +165,23 @@ set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
 가장 간단한 방법이지만 까다로운 제약사항으로 우리가 실제로 사용하기는 힘듭니다.    
 
 ## Credentialed Request
->     
-   
+> 자격이 증명된 요청   
+      
 ![with-credentials](https://user-images.githubusercontent.com/50267433/99038319-9f3a0a00-25c8-11eb-9b38-e536174ba921.png)
- 
+    
+|옵션 값|설명|
+|-------|---|
+|same-origin (기본값)|같은 출처 간 요청에만 인증 정보를 담을 수 있다|	
+|include|모든 요청에 인증 정보를 담을 수 있다|
+|omit|모든 요청에 인증 정보를 담지 않는다|
+
+* fetch() 나 비동기 API들은 일반적으로 Cookie를 담아서 보내지 않습니다.   
+* Cookie를 담을 수 있는 옵션을 주어 서버에서 인증이 된 사용자인지 한번 더 검증을 거치는 작업이다.   
+   
+
+	
+	
+
 
 # 결론 
 
