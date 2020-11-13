@@ -100,7 +100,8 @@ fetch('https://github.com/kwj1270', {headers});
 ```
 
 ```javascript
-Access to fetch at 'https://github.com/kwj1270' from origin 'chrome://new-tab-page' has been blocked by CORS policy: 
+Access to fetch at 'https://github.com/kwj1270' 
+from origin 'chrome://new-tab-page' has been blocked by CORS policy: 
 Response to preflight request doesn't pass access control check: 
 No 'Access-Control-Allow-Origin' header is present on the requested resource. 
 If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
