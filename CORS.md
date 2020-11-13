@@ -3,13 +3,16 @@
 > **교차 출처 자원 공유**      
           
 # 출처    
-`https://github.com:433/woowacourse/jwp-was/issues?q=럿고&sort=oldset#foo`
-   
+![uri-structure](https://user-images.githubusercontent.com/50267433/99033470-4b2a2800-25be-11eb-99ed-3964a246ff2e.png)
+
+
+|`https://github.com:433/woowacourse/jwp-was/issues?q=김우재&sort=oldset#foo`|   
+|-|
 * Protocol : `https://`
 * Host : `github.com`
 * Port : `:433/`
 * Path : `woowacourse/jwp-was/issues`
-* QueryString : `?q=럿고&sort=oldset` 
+* QueryString : `?q=김우재&sort=oldset` 
 * Fragment : `#foo`
     
 출처를 판단하는 기준은 `Protocol-Host-Port` 가 같다면 같은 출처라고 가정한다.      
@@ -73,13 +76,11 @@ Origin == Access-Control-Allow-Origin
      
 # CORS 시나리오  
 
+
+
+# 결론 
+
 # 참고 
 블로그 :   
 https://evan-moon.github.io/2020/05/21/about-cors/     
 동영상 :   
-
-
-
-
-# 결론 
-# 참고 
