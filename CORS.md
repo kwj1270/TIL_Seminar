@@ -40,15 +40,18 @@ console.log(location.origin);
 ...등등     
      
 ## 같은 출처 VS 다른 출처   
-```
-https://taggle.kr <- https 이므로 기본 포트가 443이다.  
+|기준 URL : |`https://taggle.kr`|
+|-----------|-------------------|
 
-https://taggle.kr/bookmark O  
-http://taggle.kr X -> Protocol이 다르다.       
-https://taggle.kr:443/bookmark?page=1 O -> RFC 표준상 http | https 에서 포트 번호는 생략가능하므로 443이 맞다면 같은 출처다.     
-https://api.taggle.kr X -> Host가 다르다.      
-https://taggle.kr:8080 X <- 포트가 다르다. (IE 에서는 O)     
-```
+
+|URL|SOP|이유|
+|-------|-------------|-------|
+|https://taggle.kr/bookmark|O|Protocol-Host-Port 동일|
+|http://taggle.kr| X |Protocol이 다르다.|
+|https://taggle.kr:443/bookmark?page=1|O|RFC 표준상 http/https 에서 포트 번호는 생략 가능 -> 443이 맞으니 같은 출처|
+|https://api.taggle.kr|X|Host가 다르다.|
+|https://taggle.kr:8080|?|<- 포트가 다르다. (IE == O, 이외 브라우저 X)|
+
 * 출처에 대한 RFC의 정확한 표준이 없어서 `프로토콜-호스트-포트`까지 동일 출처로 인정하는지는 **각각의 브라우저 구현 정책에 따라 다르다.**     
 * 대부분의 브라우저에서는 `프로토콜-호스트-포트`까지 동일 출처로 인정해준다.      
 * IE에서만은 `프로토콜-호스트`정책을 이용해서 특별하게 관리해줘야 한다. (차라리 사용 하지말자 ^^)      
