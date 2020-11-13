@@ -48,15 +48,31 @@ http://taggle.kr X -> Protocol이 다르다.
 https://taggle.kr:443/bookmark?page=1 O -> RFC 표준상 http | https 에서 포트 번호는 생략가능하므로 443이 맞다면 같은 출처다.     
 https://api.taggle.kr X -> Host가 다르다.      
 https://taggle.kr:8080 X <- 포트가 다르다. (IE 에서는 O)     
-    
-사실 출처가 RFC에서 정확한 표준이 없다보니까 프로토콜-호스트-포트까지 동일 정책으로 인정하는지는 브라우저마다의 구현 정책에 따라 다르다.  
-하지만 대부분의 브라우저에서는 프로토콜-호스트-포트까지 동일 정책으로 인정해주며 IE에서만 아니다 -> 사용 하지말자 ^^  
 ```
+* 출처에 대한 RFC의 정확한 표준이 없다보니까 `프로토콜-호스트-포트`까지 동일 정책으로 인정하는지는 **각각의 브라우저 구현 정책에 따라 다르다.**     
+* 대부분의 브라우저에서는 `프로토콜-호스트-포트`까지 동일 정책으로 인정해준다.      
+& IE에서만은 `프로토콜-호스트`정책을 이용해서 특별하게 관리해줘야 한다. (차라리 사용 하지말자 ^^)      
      
 # CORS & SOP가 나오게 된 이유  
 * CSRF    
 * XSS     
-
+    
+CORS와 SOP는       
+인터넷의 공개성으로 인해 생기는 보안 취약점들을 이용한 CSRF 와 XSS 같은 공격 수단을 방어하기 위한 정책이다.    
+    
+# 동일 출처 인식 방법은? 
+```
+Origin == Access-Control-Allow-Origin
+```
+* Requset 요청에 `Origin 헤더` 존재      
+* Response 응답에 `Access-Control-Allow-Origin 헤더` 존재      
+* Request의 `Origin 헤더`와 Response의 `Access-Control-Allow-Origin 헤더`가 같으면 같은 출처라 인식         
+     
 # CORS 시나리오  
+
+
+
+
+
 # 결론 
 # 참고 
