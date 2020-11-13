@@ -73,6 +73,10 @@ Origin == Access-Control-Allow-Origin
      
 # CORS 시나리오  
 
+# 참고 
+블로그 :   
+https://evan-moon.github.io/2020/05/21/about-cors/     
+동영상 :   
 
 
 
