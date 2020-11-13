@@ -5,15 +5,10 @@
 # 출처    
 ![uri-structure](https://user-images.githubusercontent.com/50267433/99033470-4b2a2800-25be-11eb-99ed-3964a246ff2e.png)
 
+|protocol|Host|Port|Path|QueryString|Fragment|
+|--------|----------|-----|-------|---------------------|-----|
+|https://|github.com|:433/|kwj1270|?q=김우재 &sort=oldset|#foo|
 
-|`https://github.com:433/woowacourse/jwp-was/issues?q=김우재&sort=oldset#foo`|   
-|-|
-* Protocol : `https://`
-* Host : `github.com`
-* Port : `:433/`
-* Path : `woowacourse/jwp-was/issues`
-* QueryString : `?q=김우재&sort=oldset` 
-* Fragment : `#foo`
     
 출처를 판단하는 기준은 `Protocol-Host-Port` 가 같다면 같은 출처라고 가정한다.      
 단, Port는 브라우저마다 정책이 다르다.(IE에서는 포트 포함 안함)      
