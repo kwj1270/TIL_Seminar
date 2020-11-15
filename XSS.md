@@ -118,7 +118,17 @@
   * e.g. `https://hacker.site?name=<script>alert(document.cookie);</script>`      
 * 반대로 말하면, HttpOnly를 활성화 시키면 악의적인 클라이언트가 쿠키에 저장된 정보(세ID, 토큰)에 접근하는 것을 차단한다.   
 * 단, 위와 같은 경우는 쿠키에만 해당하므로 LocalStorage에 세션ID와 같은 민감한 정보를 저장하지 않는 노력도 해야한다.   
-* 
+* 참고 : https://woowacourse.github.io/javable/2020-08-31/where_to_store_token    
+
+## 3. XSS 특수문자를 치환한다.     
+|from|`&`|`<`|`>`|`*`|`'`|`/`|   
+|----|---|---|---|---|---|---|   
+|to|`&amp;`|`&lt;`|`&gt;`|`&quot;`|`&#x27;`|`&#x2F;`|    
+   
+* Spring에서는 직접 구현하지 않아도 오픈소스 라이브러리를 사용하면 된다.    
+  * Lucy XSS Servlet Filter: https://github.com/naver/lucy-xss-servlet-filter
+    * `@RequestBody`로 전달되는 JSON 요청에 대해서는 처리해주지 않는다.  
+    * 처리법을 다루기에는 내용이 길어지므로 jojoldu 님의 블로그 참조 | https://jojoldu.tistory.com/470
 
 
 
