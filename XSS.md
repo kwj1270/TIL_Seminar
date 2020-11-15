@@ -63,6 +63,8 @@
 <img src="" onerror="alert('document.cookie')">     
 ```   
 * HTML5는 innerHTML과 함께 삽입된 <script> 태그가 실행하지 않을 뿐이다.   
+      * element.innerHTML 를 사용하는 기법을 말하는 것이다.
+      * e.g. `element.innerHTML= "<태그></태그>"'   
 * 즉, 다른 방법을 통해 강제적으로 실행시킬 수 있다는 말이다.  
 * 특정 동작을 처리하기 위해 이벤트로 script를 넣어주어 이를 강제로 실행하게끔 만들었다.   
 * 즉, 위와 같은 코드를 form 요소에 입력하면 데이터를 조회하는 사용자의 쿠키 정보를 실제로 알 수 있다.    
@@ -87,7 +89,7 @@
 
 # XSS 공격 방지 기법   
 ## XSS 취약점이 있는 innerHTML 사용을 자제한다.     
-* 다행히도 HTML5에서는 innerHTML을 통해 주입한 스크립트는 실해되지 않는다.        
+* 다행히도 HTML5에서는 innerHTML을 통해 주입한 스크립트는 실해되지 않는다.     
   * e.g. `<script>alert('hello');</script>`            
 * 하지만 여전히 스크립트를 실행할 방법이 있긴하다.        
   * e.g. onerror 이벤트 속성을 통한 스크립트 주입      
