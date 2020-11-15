@@ -117,7 +117,8 @@
 * HttpOnly 옵션을 활성화 하지 않으면 스크립트를 통해 쿠키에 접근할 수 있어 Session Hijacking 취약점 발생      
   * e.g. `https://hacker.site?name=<script>alert(document.cookie);</script>`      
 * 반대로 말하면, HttpOnly를 활성화 시키면 악의적인 클라이언트가 쿠키에 저장된 정보(세ID, 토큰)에 접근하는 것을 차단한다.   
-* 또한, LocalStorage에 세션ID와 같은 민감한 정보를 저장하지 않는다.   
+* 단, 위와 같은 경우는 쿠키에만 해당하므로 LocalStorage에 세션ID와 같은 민감한 정보를 저장하지 않는 노력도 해야한다.   
+* 
 
 
 
