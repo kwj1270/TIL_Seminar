@@ -105,7 +105,13 @@
   * `<!-- Not Allowed Attribute Filtered (src="x")--> `
   * `<img class="__se_object" s_type="attachment" s_subtype="image" jsonvalue="%7B%7D">` 
   *  서버단에서 처리하는 것으로 확인할 수 있었다.      
-  
+
+## Vue.js와 같은 프레임워클 사용시 위와 같은 문제가 발생하지 않는가?   
+* v-html 디렉티브 사용시 보안 취약점이 발생할 수 있다.   
+  * 웹사이트에서 임의의 HTML 을 동적으로 렌더링하려면(XSS 취약점)   
+  (https://en.wikipedia.org/wiki/Cross-site_scripting)으로 쉽게 이어질 수 있으므로 매우 위험한 가능성이 있습니다.       
+  신뢰할 수 있는 콘텐츠에서만 HTML 보안을 사용하고 사용자가 제공하는 콘텐츠에서는 **절대** 사용하면 안됩니다.       
+
 
 
 
