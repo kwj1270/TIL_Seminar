@@ -88,7 +88,7 @@
 * 또한, 앞서 말햇듯이 C&C 서버로 리다이렉트시켜 좀비 PC로 만들 수 있다.      
 
 # XSS 공격 방지 기법   
-## XSS 취약점이 있는 innerHTML 사용을 자제한다.     
+## 1. XSS 취약점이 있는 innerHTML 사용을 자제한다.     
 * 다행히도 HTML5에서는 innerHTML을 통해 주입한 스크립트는 실해되지 않는다.     
   * e.g. `<script>alert('hello');</script>`            
 * 하지만 여전히 스크립트를 실행할 방법이 있긴하다.        
@@ -97,7 +97,7 @@
 * 그러므로 꼭 필요한 경우가 아니라면 innerHTML을 통해 검증되지 않은 데이터를 넣지 말자      
 * **textContent, innerText를 사용하면 스크립트가 주입되지 않는다.**    
    
-## 실 사용 서비스에서는 어떻게 처리하고 있을까?   
+### 실 사용 서비스에서는 어떻게 처리하고 있을까?   
 **N사**     
 * 직접 블로그 HTML 에디터에 아래 스크립트를 삽입해보니   
   * `<img src=x onerror="alert('xss attack')">`
@@ -106,11 +106,21 @@
   * `<img class="__se_object" s_type="attachment" s_subtype="image" jsonvalue="%7B%7D">` 
   *  서버단에서 처리하는 것으로 확인할 수 있었다.      
 
-## Vue.js와 같은 프레임워클 사용시 위와 같은 문제가 발생하지 않는가?   
-* v-html 디렉티브 사용시 보안 취약점이 발생할 수 있다.   
+### Vue.js와 같은 프레임워클 사용시 위와 같은 문제가 발생하지 않는가?   
+* v-html 디렉티브 사용시 보안 취약점이 발생할 수 있다.      
+  * 사용자 입력을 innerHTML와 동일한 방식으로 처리한다.       
   * 웹사이트에서 임의의 HTML 을 동적으로 렌더링하려면(XSS 취약점)   
   ( https://en.wikipedia.org/wiki/Cross-site_scripting )으로 쉽게 이어질 수 있으므로 매우 위험한 가능성이 있습니다.       
   신뢰할 수 있는 콘텐츠에서만 HTML 보안을 사용하고 사용자가 제공하는 콘텐츠에서는 **절대** 사용하면 안됩니다.       
+
+## 2. 쿠키에 HttpOnly 옵션을 활성화한다.    
+* HttpOnly 옵션을 활성화 하지 않으면 스크립트를 통해 쿠키에 접근할 수 있어 Session Hijacking 취약점 발생      
+  * e.g. `https://hacker.site?name=<script>alert(document.cookie);</script>`      
+* 반대로 말하면, HttpOnly를 활성화 시키면 악의적인 클라이언트가 쿠키에 저장된 정보(세ID, 토큰)에 접근하는 것을 차단한다.   
+* 또한, LocalStorage에 세션ID와 같은 민감한 정보를 저장하지 않는다.   
+
+
+
 
 
 
