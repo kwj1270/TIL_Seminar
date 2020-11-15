@@ -95,8 +95,17 @@
   * e.g. onerror 이벤트 속성을 통한 스크립트 주입      
   * `<img src="" onerror=alert('xss attack')>`         
 * 그러므로 꼭 필요한 경우가 아니라면 innerHTML을 통해 검증되지 않은 데이터를 넣지 말자      
-* textContent, innerText를 사용하면 스크립트가 주입되지 않는다.      
-
+* **textContent, innerText를 사용하면 스크립트가 주입되지 않는다.**    
+   
+## 실 사용 서비스에서는 어떻게 처리하고 있을까?   
+**N사**     
+* 직접 블로그 HTML 에디터에 아래 스크립트를 삽입해보니   
+  * `<img src=x onerror="alert('xss attack')">`
+* 입력한 태그가 아래와 같이 치횐되었다! (서버에서 치환 처리)   
+  * `<!-- Not Allowed Attribute Filtered (src="x")--> `
+  * `<img class="__se_object" s_type="attachment" s_subtype="image" jsonvalue="%7B%7D">` 
+  *  서버단에서 처리하는 것으로 확인할 수 있었다.      
+  
 
 
 
