@@ -152,7 +152,6 @@ AOP는 프로그램 구조에 대한 다른 생각의 방향을 제공해주면�
 - **proxy :**     
    - 대상 객체에 Advice가 적용된 후 생성된 객체
 
-![KakaoTalk_20191105_221213381](https://user-images.githubusercontent.com/50267433/68210714-7415f580-0019-11ea-89d0-1d251f2dc945.jpg)
      
 1. 사용자는 시스템을 사용하면서 자연스럽게 비즈니스 컴포넌트의 여러 조인포인트를 호출하게 된다.
 2. 이때 특정 포인트컷으로 지정한 메소드가 호출되는 순간,
@@ -162,10 +161,14 @@ AOP는 프로그램 구조에 대한 다른 생각의 방향을 제공해주면�
 6. 이 애스팩트 설정에 따라 위빙이 처리되어 프록시 객체가 생성된다.    
         
         
-# Spring AOP 사용   
-
-# 참고   
-블로그    
-https://devbox.tistory.com/entry/spring-AOP-%EC%9A%A9%EC%96%B4-%EC%84%A4%EB%AA%85     
-https://jaehun2841.github.io/2018/07/22/2018-07-22-spring-aop4/#joinpoint-%EA%B4%80%EB%A0%A8-annotations    
-
+        
+        
+        
+        
+# 참고        
+블로그       
+https://devbox.tistory.com/entry/spring-AOP-%EC%9A%A9%EC%96%B4-%EC%84%A4%EB%AA%85        
+https://jaehun2841.github.io/2018/07/22/2018-07-22-spring-aop4/#joinpoint-%EA%B4%80%EB%A0%A8-annotations        
+https://galid1.tistory.com/498 - 사용자 지정 어노테이션 만들기      
+https://jojoldu.tistory.com/69 - jojoldu 님의 AOP 시리즈       
+    
