@@ -400,6 +400,7 @@ public class UselessAdvisor {
 ```
 * 어노테이션과 Advisor 클래스가 동일 위치면 어노테이션만 적어도 된다.   
 * 하지만 디렉토리가 다르면 `org.woowacourse.aoppractice.annotation.PerformanceCheck` 와 같이 패키지를 다 입력해주어야 한다.    
+* 아래 결과에서 알 수 있듯이 복합해서 사용해도 된다.         
       
 **결과**      
 ```
