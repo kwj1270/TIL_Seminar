@@ -315,82 +315,8 @@ businessLogicMethod process!
 2020-11-16 21:43:00.753  INFO 5986 --- [nio-8080-exec-1] o.w.aoppractice.util.UselessAdvisor      : 이것은 AfterReturning 어드바이스이다.
 ```
 
-## 어노테이션으로 구현 
-**build.gradle**
-```gradle
-buildscript {
-    ext{
-        springBootVersion = '2.1.7.RELEASE'
-    }
-    repositories {
-        mavenCentral()
-        jcenter()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-    }
-}
-
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
-
-group 'org.example'
-version '1.0-SNAPSHOT'
-sourceCompatibility = 1.8
-
-
-repositories {
-    mavenCentral()
-    jcenter()
-}
-
-dependencies {
-    compile('org.springframework.boot:spring-boot-starter-web')
-    compile('org.springframework.boot:spring-boot-starter-aop')
-
-}
-```
-
-**Application**
-```java
-package org.woowacourse.aoppractice;
-
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
-
-@EnableAspectJAutoProxy
-@SpringBootApplication
-public class Application {
-    public static void main(String[] args) { SpringApplication.run(Application.class,args); }
-
-}
-```
-
-**AopController**
-```java
-package org.woowacourse.aoppractice.controller;
-
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.woowacourse.aoppractice.service.AuthServiceImpl;
-
-@RestController
-public class AopController {
-    private final AuthServiceImpl authService;
-    public AopController(AuthServiceImpl authService){
-        this.authService = authService;
-    }
-
-    @GetMapping("/")
-    public void logTest(){
-        authService.businessLogicMethod();
-    }
-
-}
-```
+## 어노테이션으로 구현
+* build.gradle, Application, AopController 는 기존과 동일합니다.  
    
 **PerformanceCheck**
 ```java
