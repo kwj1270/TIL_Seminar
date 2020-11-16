@@ -121,11 +121,16 @@ AOP는 프로그램 구조에 대한 다른 생각의 방향을 제공해주면�
 
 # AOP 용어 
 - **Target :** 
-  - AOP의 대상   
+  - AOP의 대상
+  - 핵심 로직을 구현하는 클래스를 말한다.   
 - **Advice :** 
   - AOP 메서드 : AOP 적용시에 사용되는 메서드 (부가 기능 로직 메서드)              
   - 부가 기능은 물론 적용 시점까지도 지정할 수 있다.         
-      - Before, AfterReturning, AfterThrowing, After, Around    
+      - before : 비즈니스 메소드 실행 전에 동작
+      - after : 비즈니스 메소드 실행 후에 동작
+      - after-returning : 비즈니스 메소드 실행 중 리턴 되는 순간에
+      - after-throwing : 비즈니스 메소드 실행 중 에러 발생 순간에
+      - around	: 비즈니스 메소드 실행 전/후에 동작   
 - **Join point :** 
   - AOP가 적용될 수 있는 메소드이다.   
   - **메소드**, 필드, 객체, 생성자 등 (Spring AOP에서는 메서드만 가능)    
@@ -136,12 +141,30 @@ AOP는 프로그램 구조에 대한 다른 생각의 방향을 제공해주면�
    - Point cut으로 지정된 요소가 호출될 때 어드바이스 메서드(AOP메서드)가 호출되는 과정을 의미    
    - 즉, Point cut 으로 지정한 핵심 관심 메서드가 호출될 때, 어드바이스에 해당하는 횡단 관심 메서드가 삽입되는 과정을 의미한다.
    - Weaving 처리 방식
-      - 컴파일타임 위빙 : a.java -> a.clss
-      - 로딩타임 위빙 : a.class 를 메모리에서 로드할 때   
-      - 런타임 위빙 :
+      - 컴파일타임 위빙 : a.java -> a.clss 컴피일 될 때 
+      - 로딩타임 위빙 : a.class 를 클래스 로더가 메모리에 로드할 때      
+      - 런타임/프록시 위빙 : a라는 타겟 클래스를 부가기능을 가지는 프록시로 감싸서 실행 (스프링 AOP에서 IOC/DI를 이용한 방법)
+- **Aspect / Advisor :**
+   - Point cut과 Advice의 결합
+   - 어떤 Point cut Element에 대해서 어떤 Advice 메서드를 실행할지 결정한다.
+   - 이 Aspect 설정에 따라 AOP의 동작 방식이 결정되므로 AOP 용어 중 가장 중요한 개념이라 할 수 있다.  
+- **proxy :**     
+   - 대상 객체에 Advice가 적용된 후 생성된 객체
 
-# 참고 : 
-https://devbox.tistory.com/entry/spring-AOP-%EC%9A%A9%EC%96%B4-%EC%84%A4%EB%AA%85
-
-
+![KakaoTalk_20191105_221213381](https://user-images.githubusercontent.com/50267433/68210714-7415f580-0019-11ea-89d0-1d251f2dc945.jpg)
+     
+1. 사용자는 시스템을 사용하면서 자연스럽게 비즈니스 컴포넌트의 여러 조인포인트를 호출하게 된다.
+2. 이때 특정 포인트컷으로 지정한 메소드가 호출되는 순간,
+3. 어드바이스 객체의 어드바이스 메소드가 호출된다.
+4. 이 어드바이스 메소드의 동작 시점을 5가지로 지정할 수 있으며,
+5. 포인트컷으로 지정한 메소드가 호출될때, 어드바이스 메소드를 삽입하도록 하는 설정을 애스팩트(어드바이저)라고 한다.
+6. 이 애스팩트 설정에 따라 위빙이 처리되어 프록시 객체가 생성된다.    
+        
+        
 # Spring AOP 사용   
+
+# 참고   
+블로그    
+https://devbox.tistory.com/entry/spring-AOP-%EC%9A%A9%EC%96%B4-%EC%84%A4%EB%AA%85     
+https://jaehun2841.github.io/2018/07/22/2018-07-22-spring-aop4/#joinpoint-%EA%B4%80%EB%A0%A8-annotations    
+
