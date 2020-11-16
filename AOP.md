@@ -161,7 +161,159 @@ AOP는 프로그램 구조에 대한 다른 생각의 방향을 제공해주면�
 5. 포인트컷으로 지정한 메소드가 호출될때, 어드바이스 메소드를 삽입하도록 하는 설정을 애스팩트(어드바이저)라고 한다.
 6. 이 애스팩트 설정에 따라 위빙이 처리되어 프록시 객체가 생성된다.    
         
-    
+# 실제 AOP 작성하기  
+**build.gradle**
+```gradle
+buildscript {
+    ext{
+        springBootVersion = '2.1.7.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+sourceCompatibility = 1.8
+
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-starter-aop')
+
+}
+```
+
+**Application**
+```java
+package org.woowacourse.aoppractice;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+
+@EnableAspectJAutoProxy
+@SpringBootApplication
+public class Application {
+    public static void main(String[] args) { SpringApplication.run(Application.class,args); }
+
+}
+```
+
+**AopController**
+```java
+package org.woowacourse.aoppractice.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.woowacourse.aoppractice.service.AuthServiceImpl;
+
+@RestController
+public class AopController {
+    private final AuthServiceImpl authService;
+    public AopController(AuthServiceImpl authService){
+        this.authService = authService;
+    }
+
+    @GetMapping("/")
+    public void logTest(){
+        authService.businessLogicMethod();
+    }
+
+}
+```
+ 
+**org.woowacourse.aoppractice.service.AuthServiceImpl**
+```java
+package org.woowacourse.aoppractice.service;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class AuthServiceImpl {
+
+    public void businessLogicMethod(){
+        System.out.println("businessLogicMethod process!");
+    }
+}
+```
+      
+**org.woowacourse.aoppractice.util.UselessAdvisor**
+```java
+package org.woowacourse.aoppractice.util;
+
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.util.StopWatch;
+
+
+@Aspect
+@Configuration
+public class UselessAdvisor {
+    Logger log = LoggerFactory.getLogger(UselessAdvisor.class);
+
+    @Around("execution(* org.woowacourse.aoppractice.service.AuthServiceImpl.*(..))")
+    public Object stopWatch(ProceedingJoinPoint joinPoint) throws Throwable {
+        StopWatch stopWatch = new StopWatch();
+        try {
+            stopWatch.start();
+            return joinPoint.proceed();
+        } finally {
+            stopWatch.stop();
+            log.info("request spent {} ms", stopWatch.getLastTaskTimeMillis());
+        }
+    }
+
+    @Before("execution(* org.woowacourse.aoppractice.service.AuthServiceImpl.*(..))")
+    public void Before() throws Throwable {
+        log.info("이것은 before 어드바이스이다.");
+    }
+
+    @AfterReturning("execution(* org.woowacourse.aoppractice.service.AuthServiceImpl.*(..))")
+    public void AfterReturning() throws Throwable {
+        log.info("이것은 AfterReturning 어드바이스이다.");
+    }
+
+    @AfterThrowing("execution(* org.woowacourse.aoppractice.service.AuthServiceImpl.*(..))")
+    public void AfterThrowing() throws Throwable {
+        log.info("이것은 AfterThrowing 어드바이스이다.");
+    }
+
+    @After("execution(* org.woowacourse.aoppractice.service.AuthServiceImpl.*(..))")
+    public void After() throws Throwable {
+        log.info("이것은 After 어드바이스이다.");
+    }
+
+}
+```
+
+**결과**
+```
+2020-11-16 21:43:00.744  INFO 5986 --- [nio-8080-exec-1] o.w.aoppractice.util.UselessAdvisor      : 이것은 before 어드바이스이다.
+businessLogicMethod process!
+2020-11-16 21:43:00.751  INFO 5986 --- [nio-8080-exec-1] o.w.aoppractice.util.UselessAdvisor      : request spent 7 ms
+2020-11-16 21:43:00.753  INFO 5986 --- [nio-8080-exec-1] o.w.aoppractice.util.UselessAdvisor      : 이것은 After 어드바이스이다.
+2020-11-16 21:43:00.753  INFO 5986 --- [nio-8080-exec-1] o.w.aoppractice.util.UselessAdvisor      : 이것은 AfterReturning 어드바이스이다.
+```
+
 # 중간 내용 - 음성을 못들어서 안넣음  
 
 # Spring AOP vs AspectJ        
