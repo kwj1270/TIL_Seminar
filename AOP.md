@@ -1,6 +1,7 @@
 # AOP
-> 기존 kwj1270이 정리했던 AOP-(AspectJ):  https://github.com/kwj1270/TIL_SPRING_QUICK_START/blob/master/%EC%A0%95%EB%A6%AC/09%20AOP%20%EC%9A%A9%EC%96%B4%20%EB%B0%8F%20%EA%B8%B0%EB%B3%B8%20%EC%84%A4%EC%A0%95.md    
-   
+> 기존 kwj1270이 정리했던 AOP-(AspectJ):       
+> https://github.com/kwj1270/TIL_SPRING_QUICK_START/blob/master/%EC%A0%95%EB%A6%AC/08%20%EC%8A%A4%ED%94%84%EB%A7%81%20AOP.md        
+        
 ## 시나리오
 ### TAKE_1
    
