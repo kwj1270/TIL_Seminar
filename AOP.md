@@ -167,7 +167,7 @@ AOP는 프로그램 구조에 대한 다른 생각의 방향을 제공해주면�
 # Spring AOP vs AspectJ        
         
 ||SpringAOP|AspectJ|
-||---------|-------|
+|-|---------|-------|
 |목표|간단한 AOP 제공|완벽한 AOP 제공|
 |join point|메서들 레벨만 지원|생성자, 필드, 메서드 등 다양하게 지원|
 |weaving|런타임 시에만 가능|런타임은 제공하지 않음, compile-time, post-compile, load-time 제공|   
