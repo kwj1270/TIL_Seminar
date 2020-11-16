@@ -131,7 +131,13 @@
     * 처리법을 다루기에는 내용이 길어지므로 jojoldu 님의 블로그 참조 | https://jojoldu.tistory.com/470
 
 
+# 아직 궁금증
 
+1. store
+2.
+3.
+4.
+5.
 
 
 
