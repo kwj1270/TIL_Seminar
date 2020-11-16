@@ -182,4 +182,8 @@ https://devbox.tistory.com/entry/spring-AOP-%EC%9A%A9%EC%96%B4-%EC%84%A4%EB%AA%8
 https://jaehun2841.github.io/2018/07/22/2018-07-22-spring-aop4/#joinpoint-%EA%B4%80%EB%A0%A8-annotations        
 https://galid1.tistory.com/498 - 사용자 지정 어노테이션 만들기      
 https://jojoldu.tistory.com/69 - jojoldu 님의 AOP 시리즈       
-    
+
+실행 참고 블로그   
+https://medium.com/msolo021015/%EC%8A%A4%ED%94%84%EB%A7%81-%EB%B6%80%ED%8A%B8%EB%A1%9C-aop-%EC%A0%81%EC%9A%A9%ED%95%B4%EB%B3%B4%EA%B8%B0-43022d22d091    
+   
+   
