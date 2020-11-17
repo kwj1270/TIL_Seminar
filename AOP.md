@@ -557,7 +557,7 @@ businessLogicMethod process!
 ```
 * private 메서드에는 AOP가 적용되지 않는다.
 
-### 하지만 위 실행 방법으로는 절대 로그가 나올 수 없다!!!!   
+## 하지만 위 실행 방법으로는 절대 로그가 나올 수 없다!!!!   
 |JoinPoint|SpringAOP|AspectJ|
 |---------|---------|-------|
 |메서드 호출|X|O|
@@ -572,7 +572,6 @@ businessLogicMethod process!
 
 * 스프링 AOP에서는 메서드 실행에 대해서만 적용되지 호출에 대해서는 적용이 되지 않는다.   
 * 그래서 이를 확인하기 위해서는 AspectJ를 적용해야 할 것 같다.
-
 
 # Spring AOP vs AspectJ        
         
