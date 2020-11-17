@@ -573,6 +573,12 @@ businessLogicMethod process!
 * 스프링 AOP에서는 메서드 실행에 대해서만 적용되지 호출에 대해서는 적용이 되지 않는다.   
 * 그래서 이를 확인하기 위해서는 AspectJ를 적용해야 할 것 같다.
 
+# AspectJ를 이용한 테스트
+
+## 이를 통해 깨달은점 
+### @Trancsactional   
+
+
 # Spring AOP vs AspectJ        
         
 ||SpringAOP|AspectJ|
