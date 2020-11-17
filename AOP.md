@@ -577,9 +577,18 @@ businessLogicMethod process!
 
 # AspectJ를 이용한 테스트
 
-## 이를 통해 깨달은점 
-### @Trancsactional   
+## 이를 통해 깨달은점  
+### @Trancsactional    
+private 메서드에 `@Trancsactional` 어노테이션을 붙였을 때 작동을 하지 않는다는 말이 있다.   
+이유는 바로, `@Trancsactional` 어노테이션도 스프링 AOP 메서드이기 때문이다.   
 
+* **@Trancsactional :**    
+  * 로직 시작시 트랜잭션을 열어줌
+  * 로직 끝날시 commit하고 트랜잭션을 닫아줌  
+  * 트랜잭션에 관련된 인프라 로직을 지원하기에 우리는 비즈니스 로직에 집중할 수 있게 
+
+그렇기 때문에 `@Trancsactional` 어노테이션을 적용한 메서드는 private를 적용하지 않는 것이 좋습니다.   
+또한 `@Trancsactional` 뿐만 아니라 
 
 # Spring AOP vs AspectJ        
         
