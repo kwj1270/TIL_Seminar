@@ -1,4 +1,6 @@
 # TCP UDP    
+> 마찬가지로 전체적으로 내용이 부실한 것 같다. 추가로 정리하자      
+   
 1. Transport Layer - 전송 계층     
 2. TCP (Transfer Control Protocol)
 3. UDP (User Datagram Protocol)   
