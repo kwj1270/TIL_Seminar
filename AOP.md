@@ -413,6 +413,154 @@ businessLogicMethod process!
 2020-11-16 22:03:59.587  INFO 6193 --- [nio-8080-exec-1] o.w.aoppractice.util.UselessAdvisor      : 이것은 AfterReturning 어드바이스이다.
 ```  
 
+# 런타임/프록시 위빙이란?    
+* Proxy를 생성하여 실제 타깃(Target) 오브젝트의 변형없이 위빙을 수행한다.    
+* 실제 런타임 상, Method 호출 시에 위빙이 이루어 지는 방식이다.     
+* 소스파일, 클래스 파일에 대한 변형이 없다는 장점이 있지만, 포인트 컷에 대한 어드바이스 적용 갯수가 늘어 날수록 성능이 떨어진다는 단점이 있다.    
+* 또한 메소드 호출에 대해서만 어드바이스를 적용 할 수 있다.       
+     
+**org.woowacourse.aoppractice.controller.AopController**     
+```java
+package org.woowacourse.aoppractice.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.woowacourse.aoppractice.service.AuthServiceImpl;
+
+@RestController
+public class AopController {
+    private final AuthServiceImpl authService;
+    public AopController(AuthServiceImpl authService){
+        System.out.println(authService.getClass().getName());
+        this.authService = authService;
+    }
+
+    @GetMapping("/")
+    public void logTest(){
+        authService.businessLogicMethod();
+    }
+
+}
+```
+
+**결과**
+```
+org.woowacourse.aoppractice.service.AuthServiceImpl$$EnhancerBySpringCGLIB$$dbdb402d
+```
+
+* 메서드를 감싸는 것이 아닌 Target 클래스를 프록시로 감싸는 것을 알 수 있다.   
+* 물론 AOP를 사용하지 않으면 `org.woowacourse.aoppractice.service.AuthServiceImpl`가 출력된다.   
+* 기존 객체 : AuthServiceImpl      
+* 프록시 객체 : AuthServiceImpl$$EnhancerBySpringCGLIB$$dbdb402d    
+* CGLIB란? : https://www.youtube.com/watch?v=RHxTV7qFV7M    
+  * 간략히 말하면 클래스 상속을 이용해서 만든 프록시 객체를 의미    
+  * 추후에 정리할 예정        
+    
+<img width="1285" alt="스크린샷 2020-11-17 오전 11 06 34" src="https://user-images.githubusercontent.com/50267433/99337118-0b688680-28c5-11eb-9c99-b0992130f269.png">   
+
+* 기존에는 `AuthController(AopController)` 가 `AuthService`를 의존(참조함)  
+* 프록시 위빙을 적용하면 `AuthService`를 상속받은 `AuthService$$블라블라`를 의존  
+* 상속을 이용한 방식이기에 다형성을 이용하여 하위 클래스인 `AuthService$$블라블라`를 의존 참조할 수 있는 것이다.
+  * `private final AuthServiceImpl authService;`
+  * `public AopController(AuthServiceImpl authService){this.authService = authService;}`
+* `AuthService$$블라블라`는 `AuthService`를 상속받은 클래스인데 **private는 어떻게 될까?** - 좋은 의문점   
+  * 결과 : 상속을 통한 구현이기 때문에 `private`에 관한 메서드는 프록시로 감싸지지 않음  
+    * 이는 final 도 마찬가지 : 상수로 오버라이딩을 지원하지 않으므로    
+  * 그렇다면 `protected`는? : 아마 될 것 같은데 실험해보자  
+
+## private 메서드를 사용 가능한지 확인해보기  
+**org.woowacourse.aoppractice.service.AuthServiceImpl**
+```java
+package org.woowacourse.aoppractice.service;
+
+import org.springframework.stereotype.Service;
+import org.woowacourse.aoppractice.annotation.PerformanceCheck;
+
+@Service
+public class AuthServiceImpl {
+
+    public void businessLogicMethod(){
+        initMethod();
+        System.out.println("businessLogicMethod process!");
+    }
+
+    @PerformanceCheck
+    private void initMethod(){
+        System.out.println("initMethod process!");
+    }
+
+}
+```
+* 기존 `businessLogicMethod()` 의 `@PerformanceCheck` 어노테이션을 제거
+* `initMethod()` 를 생성하고 `@PerformanceCheck` 어노테이션을 추가  
+  * 단, **`initMethod()`는 private** 접근 제어자를 사용 
+  
+**org.woowacourse.aoppractice.util.UselessAdvisor**  
+```java
+package org.woowacourse.aoppractice.util;
+
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+import org.springframework.util.StopWatch;
+
+
+@Aspect
+@Component
+public class UselessAdvisor {
+    Logger log = LoggerFactory.getLogger(UselessAdvisor.class);
+
+    @Around("@annotation(org.woowacourse.aoppractice.annotation.PerformanceCheck)")
+    public Object stopWatch(ProceedingJoinPoint joinPoint) throws Throwable {
+        StopWatch stopWatch = new StopWatch();
+        try {
+            stopWatch.start();
+            return joinPoint.proceed();
+        } finally {
+            stopWatch.stop();
+            log.info("request spent {} ms", stopWatch.getLastTaskTimeMillis());
+        }
+    }
+/*
+    @Before("execution(* org.woowacourse.aoppractice.service.AuthServiceImpl.*(..))")
+    public void Before() throws Throwable {
+        log.info("이것은 before 어드바이스이다.");
+    }
+
+    @AfterReturning("execution(* org.woowacourse.aoppractice.service.AuthServiceImpl.*(..))")
+    public void AfterReturning() throws Throwable {
+        log.info("이것은 AfterReturning 어드바이스이다.");
+    }
+
+    @AfterThrowing("execution(* org.woowacourse.aoppractice.service.AuthServiceImpl.*(..))")
+    public void AfterThrowing() throws Throwable {
+        log.info("이것은 AfterThrowing 어드바이스이다.");
+    }
+
+    @After("execution(* org.woowacourse.aoppractice.service.AuthServiceImpl.*(..))")
+    public void After() throws Throwable {
+        log.info("이것은 After 어드바이스이다.");
+    }
+*/
+}
+
+```
+* 필자는 여러 어드바이스를 적용시켰기에 불필요한 것들은 주석으로 처리
+* 만약 private 메서드에 AOP가 적용된다면 `request spent {} ms", stopWatch.getLastTaskTimeMillis()` 출력 될 것
+
+**결과**
+```
+initMethod process!
+businessLogicMethod process!
+```
+* private 메서드에는 AOP가 적용되지 않는다.
+
+### 하지만 위 실행 방법은 절대 로그가 나올 수 없다!!!!   
+* 우선 호출하는 `AuthController(AOP)`의 의존 대상을 보게되면 `AuthService`이지 `AuthService$$블라블라`가 아니다.
+* 즉, `init()` 메서드는 오버라이딩 했을지라도 `businessLogicMethod` 를 호출하는 자료형은 `AuthService` 이므로 해당 메서드가 실행되지는 않는다.   
+
 # Spring AOP vs AspectJ        
         
 ||SpringAOP|AspectJ|
@@ -432,8 +580,9 @@ https://jaehun2841.github.io/2018/07/22/2018-07-22-spring-aop4/#joinpoint-%EA%B4
 https://galid1.tistory.com/498 - 사용자 지정 어노테이션 만들기      
 https://jojoldu.tistory.com/69 - jojoldu 님의 AOP 시리즈       
 https://onlyformylittlefox.tistory.com/16 - 어노테이션 실행 안되는 이유 (같은 경로 아니면 패키지 다 입력)
+https://jaehun2841.github.io/2018/07/22/2018-07-22-spring-aop4/#aspectj%EB%9E%80 - 위빙 관련 내용  
    
-실행 참고 블로그   
+실행 참고 블로그     
 https://medium.com/msolo021015/%EC%8A%A4%ED%94%84%EB%A7%81-%EB%B6%80%ED%8A%B8%EB%A1%9C-aop-%EC%A0%81%EC%9A%A9%ED%95%B4%EB%B3%B4%EA%B8%B0-43022d22d091    
    
    
