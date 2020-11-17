@@ -557,9 +557,22 @@ businessLogicMethod process!
 ```
 * private 메서드에는 AOP가 적용되지 않는다.
 
-### 하지만 위 실행 방법은 절대 로그가 나올 수 없다!!!!   
-* 우선 호출하는 `AuthController(AOP)`의 의존 대상을 보게되면 `AuthService`이지 `AuthService$$블라블라`가 아니다.
-* 즉, `init()` 메서드는 오버라이딩 했을지라도 `businessLogicMethod` 를 호출하는 자료형은 `AuthService` 이므로 해당 메서드가 실행되지는 않는다.   
+### 하지만 위 실행 방법으로는 절대 로그가 나올 수 없다!!!!   
+|JoinPoint|SpringAOP|AspectJ|
+|---------|---------|-------|
+|메서드 호출|간단한 AOP 제공|완벽한 AOP 제공|
+|메서드 실행|메서들 레벨만 지원|생성자, 필드, 메서드 등 다양하게 지원|
+|생성자 호출|런타임 시에만 가능|런타임은 제공하지 않음, compile-time, post-compile, load-time 제공|   
+|생성자 실행|Spring Container가 관리하는 Bean에만 가능|모든 JAVA Object에 가능|  
+|Static 초기화 실행|간단한 AOP 제공|완벽한 AOP 제공|
+|객체 초기화|간단한 AOP 제공|완벽한 AOP 제공|
+|필드 참조|간단한 AOP 제공|완벽한 AOP 제공|
+|핸들러 실행|간단한 AOP 제공|완벽한 AOP 제공|
+
+* 스프링 AOP에서는 메서드 실행에 대해서만 적용되지 호출에 대해서는 적용이 되지 않는다.   
+* 그래서 이를 확인하기 위해서는 AspectJ를 적용해야 할 것 같다 ㅠㅡㅠ    
+
+
 
 # Spring AOP vs AspectJ        
         
@@ -581,6 +594,7 @@ https://galid1.tistory.com/498 - 사용자 지정 어노테이션 만들기
 https://jojoldu.tistory.com/69 - jojoldu 님의 AOP 시리즈       
 https://onlyformylittlefox.tistory.com/16 - 어노테이션 실행 안되는 이유 (같은 경로 아니면 패키지 다 입력)
 https://jaehun2841.github.io/2018/07/22/2018-07-22-spring-aop4/#aspectj%EB%9E%80 - 위빙 관련 내용  
+https://logical-code.tistory.com/118 - 전체적인 요약본, 가장 좋다.   
    
 실행 참고 블로그     
 https://medium.com/msolo021015/%EC%8A%A4%ED%94%84%EB%A7%81-%EB%B6%80%ED%8A%B8%EB%A1%9C-aop-%EC%A0%81%EC%9A%A9%ED%95%B4%EB%B3%B4%EA%B8%B0-43022d22d091    
