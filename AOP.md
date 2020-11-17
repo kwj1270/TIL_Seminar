@@ -588,8 +588,8 @@ private 메서드에 `@Trancsactional` 어노테이션을 붙였을 때 작동�
   * 트랜잭션에 관련된 인프라 로직을 지원하기에 우리는 비즈니스 로직에 집중할 수 있게 
 
 그렇기 때문에 `@Trancsactional` 어노테이션을 적용한 메서드는 private를 적용하지 않는 것이 좋습니다.   
-또한 `@Trancsactional` 뿐만 아니라 
-
+또한 `@Trancsactional`뿐만 아니라 Interceptor 나 Filter 같은 개념들도 마찬가지입니다.     
+     
 # Spring AOP vs AspectJ        
         
 ||SpringAOP|AspectJ|
@@ -598,8 +598,6 @@ private 메서드에 `@Trancsactional` 어노테이션을 붙였을 때 작동�
 |join point|메서들 레벨만 지원|생성자, 필드, 메서드 등 다양하게 지원|
 |weaving|런타임 시에만 가능|런타임은 제공하지 않음, compile-time, post-compile, load-time 제공|   
 |대상|Spring Container가 관리하는 Bean에만 가능|모든 JAVA Object에 가능|  
-
-
         
         
 # 참고        
