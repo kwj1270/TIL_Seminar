@@ -558,6 +558,8 @@ businessLogicMethod process!
 * private 메서드에는 AOP가 적용되지 않는다.
 
 ## 하지만 위 실행 방법으로는 절대 로그가 나올 수 없다!!!!   
+![놀라는 짤](https://user-images.githubusercontent.com/50267433/99340805-14a92180-28cc-11eb-9ac4-bdde9449ed2e.png)    
+    
 |JoinPoint|SpringAOP|AspectJ|
 |---------|---------|-------|
 |메서드 호출|X|O|
