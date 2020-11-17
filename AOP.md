@@ -141,10 +141,12 @@ AOP는 프로그램 구조에 대한 다른 생각의 방향을 제공해주면�
 - **Weaving :**   
    - Point cut으로 지정된 요소가 호출될 때 어드바이스 메서드(AOP메서드)가 호출되는 과정을 의미    
    - 즉, Point cut 으로 지정한 핵심 관심 메서드가 호출될 때, 어드바이스에 해당하는 횡단 관심 메서드가 삽입되는 과정을 의미한다.
-   - Weaving 처리 방식
+   - Weaving 처리 방식 (AOP 구현 방법)   
       - 컴파일타임 위빙 : a.java -> a.clss 컴피일 될 때 
       - 로딩타임 위빙 : a.class 를 클래스 로더가 메모리에 로드할 때      
-      - 런타임/프록시 위빙 : a라는 타겟 클래스를 부가기능을 가지는 프록시로 감싸서 실행 (스프링 AOP에서 IOC/DI를 이용한 방법)
+      - 런타임/프록시 위빙 : a라는 타겟 클래스를 부가기능을 가지는 프록시로 감싸서 실행 (스프링 AOP에서는 IOC/DI를 이용한 방법)
+      - 스프링에서는 런타임 위빙만을 지원한다.      
+      
 - **Aspect / Advisor :**
    - Point cut과 Advice의 결합
    - 어떤 Point cut Element에 대해서 어떤 Advice 메서드를 실행할지 결정한다.
@@ -409,9 +411,7 @@ businessLogicMethod process!
 2020-11-16 22:03:59.584  INFO 6193 --- [nio-8080-exec-1] o.w.aoppractice.util.UselessAdvisor      : request spent 9 ms
 2020-11-16 22:03:59.587  INFO 6193 --- [nio-8080-exec-1] o.w.aoppractice.util.UselessAdvisor      : 이것은 After 어드바이스이다.
 2020-11-16 22:03:59.587  INFO 6193 --- [nio-8080-exec-1] o.w.aoppractice.util.UselessAdvisor      : 이것은 AfterReturning 어드바이스이다.
-```
-
-# 중간 내용 - 음성을 못들어서 안넣음  
+```  
 
 # Spring AOP vs AspectJ        
         
