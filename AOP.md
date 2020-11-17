@@ -560,18 +560,18 @@ businessLogicMethod process!
 ### 하지만 위 실행 방법으로는 절대 로그가 나올 수 없다!!!!   
 |JoinPoint|SpringAOP|AspectJ|
 |---------|---------|-------|
-|메서드 호출|간단한 AOP 제공|완벽한 AOP 제공|
-|메서드 실행|메서들 레벨만 지원|생성자, 필드, 메서드 등 다양하게 지원|
-|생성자 호출|런타임 시에만 가능|런타임은 제공하지 않음, compile-time, post-compile, load-time 제공|   
-|생성자 실행|Spring Container가 관리하는 Bean에만 가능|모든 JAVA Object에 가능|  
-|Static 초기화 실행|간단한 AOP 제공|완벽한 AOP 제공|
-|객체 초기화|간단한 AOP 제공|완벽한 AOP 제공|
-|필드 참조|간단한 AOP 제공|완벽한 AOP 제공|
-|핸들러 실행|간단한 AOP 제공|완벽한 AOP 제공|
+|메서드 호출|X|O|
+|메서드 실행|O|O|
+|생성자 호출|X|O|  
+|생성자 실행|X|O|
+|Static 초기화 실행|X|O|
+|객체 초기화|X|O|
+|필드 참조|X|O|
+|핸들러 실행|X|O|
+|Advice 실행|X|O|
 
 * 스프링 AOP에서는 메서드 실행에 대해서만 적용되지 호출에 대해서는 적용이 되지 않는다.   
-* 그래서 이를 확인하기 위해서는 AspectJ를 적용해야 할 것 같다 ㅠㅡㅠ    
-
+* 그래서 이를 확인하기 위해서는 AspectJ를 적용해야 할 것 같다.
 
 
 # Spring AOP vs AspectJ        
