@@ -54,11 +54,51 @@
    
 -> 모델과 구현(코드)의 불일치가 발생, 소통의 어려움   
 
-## DDD OverView
-
+# DDD OverView   
+  
+![DDD-Pattern-Language-Overview-sml](https://user-images.githubusercontent.com/50267433/99480455-75535f80-299b-11eb-9cbd-cd658804eee5.png)       
+![DDD-Pattern-Language-Overview-sml_divide](https://user-images.githubusercontent.com/50267433/99480749-1215fd00-299c-11eb-97e4-bfdc7c45b6c9.png)    
+   
+   
 * 전략적 설계 
   * 개념 설계  
 * 전술적 설계   
   * 구체적 설계   
   
+## 전략적 설계  
+* 복잡한 도메인의 맥락(Context) 경계를 명확히 정의하는 과정    
+* Bounded Context 안의 도메인 모델에서 보편 언어를 개발하는 방법  
+  * 도메인에 집중하면 도메인이 설명하는 범위와 도메인 간의 경계들이 명확하게 드러나는데, 이를 Bounded context라고 합니다.    
+* 도메인에서 서브 도메인으로 복잡성 분리   
+  * 핵심, 지원 도메인 파악 - 관점 파악 -> AOP의 근간?    
+* 컨텍스트 맵핑 기술을 활용해 여러 개의 Bounded Context 통합   
+* 이벤트 스토밍 기법을 활용해 Bounded Context 식별   
+    
+### 진흙 덩어리 문제   
+   
+[사진]    
+   
+## 전술적 설계    
+* 전략적 설계에서 더 상세한 부분(바운디드 컨텍스트 내부)모델링   
+* Model Driven Design - MDD   
+* 빌딩 블록(패턴)을 사용해 모델링 - Aggregate 패턴    
+* 계층형 아키텍처를 통한 도메인 모델 분리   
+* 도메인 이벤트를 통해 도메인을 보다 명확히 모델링  
+ 
+### 전술적 설계 Building Block   
+[사진]  
+   
+[사진]
+ 
+# DDD 결론  
+* 흔히 DDD를 떠올리면 DDD의 전술적 설계에 대한 개념을 많이들 떠올립니다.(Entity, ValueObject, Aggregate)     
+* 물론 DDD의 전술적 설계만 했을 시에도 장점 존재 - DDD Lite        
+* 하지만 DDD는 이러한 패턴보다는 협업을 통한 문제 해결이 더 강조        
+  
+ 
+ 
+# 참고 
+블로그   
+https://nesoy.github.io/articles/2018-07/DDD-Bounded-Context  - boundedContext   
+
 
