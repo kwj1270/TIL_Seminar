@@ -94,7 +94,7 @@
 * 흔히 DDD를 떠올리면 DDD의 전술적 설계에 대한 개념을 많이들 떠올립니다.(Entity, ValueObject, Aggregate)     
 * 물론 DDD의 전술적 설계만 했을 시에도 장점 존재 - DDD Lite        
 * 하지만 DDD는 이러한 패턴보다는 협업을 통한 문제 해결이 더 강조        
-  
+* aasd  
  
  
 # 참고 
