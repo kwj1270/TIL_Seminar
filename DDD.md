@@ -176,4 +176,4 @@
 # 참고 
 블로그   
 https://nesoy.github.io/articles/2018-07/DDD-Bounded-Context  - boundedContext   
-
+https://ppiyo5.tistory.com/21 - 나중에 보면 좋을 것 같아서..
