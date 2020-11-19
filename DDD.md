@@ -126,14 +126,18 @@
 ## 데이터 중심적인 접근법   
 * 기존 개발은 DB 테이블 중심   
   * JPA를 사용하기 이전에는 DB에 맞춰서 클래스를 작성해야하는 의존적인 형태였다.    
-* 빈약한 도메인 모델     
-  * 도메인 객체들에 비즈니스 로직이 거의 없거나 아예 없는 소프트웨어 도메인 모델     
-  * 클래스의 
-
+* **빈약한 도메인 모델 - 아래에서 설명**   
+    
 ## 빈약한 도메인 모델
 * Getter 와 Setter만으로 구성 된 모델
-* 데이터만 가지는 데이터홀더 개념   
-* Big Service Layer
+  * 도메인 객체들에 비즈니스 로직이 거의 없거나 아예 없는 소프트웨어 도메인 모델     
+  * 객체 지향의 목적과는 달리 단순히 `getter/setter` 로직만 존재할 경우 이를 빈약한 도메인 모델이라 한다.   
+    * 객체 지향이란 데이터와 프로세스를 함께 묶는 것이다.       
+    * getter/setter만 존재하는 것은 비즈니스 로직은 전혀 없고 단순히 값만 넣고 빼므로 절차 지향과 크게 다를바가 없기 때문이다.     
+    * 더 정확히 말하면 객체 지향 모델링 과정에서 모델링 설계를 잘못해서 일어난 결과라고 봐도 무방하다.   
+* 데이터만 가지는 데이터홀더 개념 
+  * 정보은닉만 사용하여 데이터를 메서드로 넣고 빼기만 하는 홀더 개념만 가진다.    
+* Big Service Layer    
    
 -> 모델과 구현(코드)의 불일치가 발생, 소통의 어려움   
 
@@ -210,3 +214,4 @@ https://nesoy.github.io/articles/2018-07/DDD-Bounded-Context  - boundedContext
 https://ppiyo5.tistory.com/21 - 나중에 보면 좋을 것 같아서.    
 https://opennote46.tistory.com/193 - 유비쿼터스 랭귀지   
 https://m.blog.naver.com/PostView.nhn?blogId=loopbit&logNo=221319258228&proxyReferer=https:%2F%2Fwww.google.com%2F 참고     
+https://m.blog.naver.com/PostView.nhn?blogId=muchine98&logNo=220304821784&proxyReferer=https:%2F%2Fwww.google.com%2F - 도메인 모델   
