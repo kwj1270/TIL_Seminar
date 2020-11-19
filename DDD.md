@@ -102,7 +102,6 @@
 
 # DDD OverView   
   
-![DDD-Pattern-Language-Overview-sml](https://user-images.githubusercontent.com/50267433/99480455-75535f80-299b-11eb-9cbd-cd658804eee5.png)       
 ![DDD-Pattern-Language-Overview-sml_divide](https://user-images.githubusercontent.com/50267433/99480749-1215fd00-299c-11eb-97e4-bfdc7c45b6c9.png)    
    
    
