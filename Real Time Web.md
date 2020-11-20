@@ -37,6 +37,7 @@
 * 요청 전에 이벤트가 발생하지 않았더라도 (가용 데이터가 없더라도) 응답을 해줍니다.  
 * 요청 전에 이벤트가 발생하면 (가용 데이터 존재) 해당 데이터를 통한 응답을 해줍니다.   
 
+**Polling(폴링)**   
 ```javascript  
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
