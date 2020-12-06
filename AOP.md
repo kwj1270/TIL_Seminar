@@ -282,7 +282,9 @@ import org.woowacourse.aoppractice.service.AuthServiceImpl;
 
 @RestController
 public class AopController {
+    
     private final AuthServiceImpl authService;
+    
     public AopController(AuthServiceImpl authService){
         this.authService = authService;
     }
@@ -325,6 +327,7 @@ import org.springframework.util.StopWatch;
 @Aspect
 @Configuration
 public class UselessAdvisor {
+
     Logger log = LoggerFactory.getLogger(UselessAdvisor.class);
 
     @Around("execution(* org.woowacourse.aoppractice.service.AuthServiceImpl.*(..))")
@@ -418,6 +421,7 @@ import org.springframework.util.StopWatch;
 @Aspect
 @Component
 public class UselessAdvisor {
+
     Logger log = LoggerFactory.getLogger(UselessAdvisor.class);
 
     @Around("@annotation(org.woowacourse.aoppractice.annotation.PerformanceCheck)")
@@ -483,7 +487,9 @@ import org.woowacourse.aoppractice.service.AuthServiceImpl;
 
 @RestController
 public class AopController {
+    
     private final AuthServiceImpl authService;
+    
     public AopController(AuthServiceImpl authService){
         System.out.println(authService.getClass().getName());
         this.authService = authService;
@@ -564,6 +570,7 @@ import org.springframework.util.StopWatch;
 @Aspect
 @Component
 public class UselessAdvisor {
+
     Logger log = LoggerFactory.getLogger(UselessAdvisor.class);
 
     @Around("@annotation(org.woowacourse.aoppractice.annotation.PerformanceCheck)")
