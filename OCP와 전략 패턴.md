@@ -2,7 +2,7 @@
 > Open-Closed Principle : 개발 폐쇄 원칙             
 > 영상 참고 | 우아한 테크코스 | https://www.youtube.com/watch?v=90ZDvHl8ROE          
         
-[1. IF ELSE의 문제점](#if-else의 문제점)     
+[1. IF ELSE의 문제점](#if-else의-문제점)     
 [2. OCP](#OCP)     
 [3. 전략 패턴](#전략-패턴)    
 [4. 연습 문제 추천](#연습-문제-추천)      
