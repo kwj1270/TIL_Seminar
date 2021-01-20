@@ -232,3 +232,7 @@ https://ppiyo5.tistory.com/21 - 나중에 보면 좋을 것 같아서.
 https://opennote46.tistory.com/193 - 유비쿼터스 랭귀지   
 https://m.blog.naver.com/PostView.nhn?blogId=loopbit&logNo=221319258228&proxyReferer=https:%2F%2Fwww.google.com%2F 참고     
 https://m.blog.naver.com/PostView.nhn?blogId=muchine98&logNo=220304821784&proxyReferer=https:%2F%2Fwww.google.com%2F - 도메인 모델   
+
+# 나중에 알게 된 지식
+참고로 [huisam님의 블로그](https://huisam.tistory.com/entry/DDD)의 블로그에 가보는 것을 추천한다.
+DDD(DLS)를 누구보다 쉽게 설명해주셨다.   
