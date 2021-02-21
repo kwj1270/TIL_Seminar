@@ -2,9 +2,6 @@
 > Cross-Origin Resource Sharing   
 > **교차 출처 자원 공유**      
           
-2020//11/14 : 우선 전체적으로 내용이 정리가 잘 안되어있다는 생각이 들었고      
-해결책이 명확히 제시되어있지 않으니 이부분을 중점으로 새롭게 정리를 진행해야겠다.   
-          
 # 출처    
 ![uri-structure](https://user-images.githubusercontent.com/50267433/99033470-4b2a2800-25be-11eb-99ed-3964a246ff2e.png)
 
